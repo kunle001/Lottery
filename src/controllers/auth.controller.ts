@@ -109,6 +109,7 @@ export class AuthController {
         `https://graph.facebook.com/v13.0/me?fields=name,email&access_token=${access_token}`
       );
 
+      console.log(profile);
       // Code to handle user authentication and retrieval using the profile data
 
       res.redirect("/");
