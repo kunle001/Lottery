@@ -99,7 +99,7 @@ export class AuthController {
     try {
       // Exchange authorization code for access token
       const { data } = await axios.get(
-        `https://graph.facebook.com/v13.0/oauth/access_token?client_id=894208924900180&client_secret=63cc3b3d78c084c883246a32ff5b71a8&code=${code}&redirect_uri=https://quizmeapp.io/`
+        `https://graph.facebook.com/v13.0/oauth/access_token?client_id=894208924900180&client_secret=63cc3b3d78c084c883246a32ff5b71a8&code=${code}&redirect_uri=https://lottery-n73z.onrender.com/api/v1/auth/facebook/callback`
       );
 
       const { access_token } = data;
