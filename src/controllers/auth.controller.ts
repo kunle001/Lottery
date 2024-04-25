@@ -88,7 +88,7 @@ export class AuthController {
   );
 
   public facebook = catchAsync(async (req: Request, res: Response) => {
-    const url = `https://www.facebook.com/v13.0/dialog/oauth?client_id=894208924900180&redirect_uri=http://localhost:2000/facebook/callback&config_id=358085403367931`;
+    const url = `https://www.facebook.com/v13.0/dialog/oauth?client_id=894208924900180&redirect_uri=https://lottery-n73z.onrender.com/api/v1/auth/facebook/callback&config_id=358085403367931`;
     res.redirect(url);
   });
 
