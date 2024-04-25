@@ -8,6 +8,16 @@ import { sendSuccess } from "../utils/response";
 import { catchAsync } from "../utils/catchAsync";
 import axios from "axios";
 
+interface FacebbokUserDetails {
+  id: string;
+  name: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+  gender: string;
+  birthday: string;
+}
+
 export class AuthController {
   private fbSecret: string;
   private fbID: string;
@@ -102,15 +112,11 @@ export class AuthController {
         `https://graph.facebook.com/v13.0/oauth/access_token?client_id=894208924900180&client_secret=63cc3b3d78c084c883246a32ff5b71a8&code=${code}&redirect_uri=https://lottery-n73z.onrender.com/api/v1/auth/facebook/callback`
       );
 
-      console.log("past step 1");
-
       const { access_token } = data;
-
-      console.log("past step 2", access_token);
 
       // Use access_token to fetch user profile
       const { data: profile } = await axios.get(
-        `https://graph.facebook.com/v13.0/me?fields=name,email&access_token=${access_token}`
+        `https://graph.facebook.com/v13.0/me?fields=id,name,email,first_name,last_name,gender,birthday&access_token=${access_token}`
       );
 
       console.log(profile);
