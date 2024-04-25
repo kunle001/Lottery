@@ -102,7 +102,11 @@ export class AuthController {
         `https://graph.facebook.com/v13.0/oauth/access_token?client_id=894208924900180&client_secret=63cc3b3d78c084c883246a32ff5b71a8&code=${code}&redirect_uri=https://lottery-n73z.onrender.com/api/v1/auth/facebook/callback`
       );
 
+      console.log("past step 1");
+
       const { access_token } = data;
+
+      console.log("past step 2", access_token);
 
       // Use access_token to fetch user profile
       const { data: profile } = await axios.get(
