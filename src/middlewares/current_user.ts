@@ -2,22 +2,30 @@ import AppError from "../utils/appError";
 import { catchAsync } from "../utils/catchAsync";
 import { UserPayload } from "../utils/validators";
 import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken";
 
-export const currentUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+export const currentUser = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
     if (!req.headers.authorization) {
-        return next()
+      return next();
     }
 
-    const isAuthenticated = jwt.verify(req.headers.authorization, process.env.JWTKEY!) as UserPayload
+    const isAuthenticated = jwt.verify(
+      req.headers.authorization,
+      process.env.JWT_KEY!
+    ) as UserPayload;
 
     req.currentUser = isAuthenticated;
 
     next();
-});
+  }
+);
 
-export const  requireAuth= catchAsync(async(req:Request, res:Response, next:NextFunction)=>{
+export const requireAuth = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
     if (!req.currentUser) {
-        throw new AppError("Please Login", 403)
+      throw new AppError("Please Login", 403);
     }
-})
+    next();
+  }
+);
