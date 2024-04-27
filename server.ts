@@ -17,9 +17,8 @@ cloudinary.v2.config({
 
 const PORT = process.env.PORT || 3000;
 
-// const [start_num, end] = getRandomRange(0, 100000, 10);
+// const [start_num, end] = getRandomRange(0, 12, 10);
 // console.log("Random range:", start_num, "-", end);
-console.log(Date.now());
 
 const start = async () => {
   try {
