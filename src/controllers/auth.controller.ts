@@ -1,12 +1,14 @@
 import { Request, Response, NextFunction } from "express";
 import AppError from "../utils/appError";
 import jwt from "jsonwebtoken";
-import { UserPayload } from "../utils/validators";
+import { UserPayload, signToken } from "../utils/validators";
 import { User } from "../models/user";
 import { Password } from "../utils/Password";
 import { sendSuccess } from "../utils/response";
 import { catchAsync } from "../utils/catchAsync";
 import axios from "axios";
+import dotenv from "dotenv";
+dotenv.config({ path: "./.env" });
 
 interface FacebbokUserDetails {
   id: string;
@@ -55,13 +57,45 @@ export class AuthController {
       image: exisitingUser.avatar,
     };
 
-    const token = jwt.sign(user_data, process.env.JWTKEY!);
+    const token = jwt.sign(user_data, process.env.JWT_KEY!);
 
     sendSuccess(res, 200, token);
   });
 
   public signup = catchAsync(async (req: Request, res: Response) => {
     // Implementation for signup
+    let { fullName, username, email, password } = req.body;
+    console.log(fullName, username, email, password);
+    // const existingUser = await User.find({ $or: [{ username }, { email }] });
+    // if (existingUser){
+    //   throw new AppError("username or email already exist")
+    // }
+
+    let user = User.build({
+      fullName,
+      username,
+      password,
+      email,
+    });
+
+    user = await user.save();
+    const jwt = signToken({
+      id: user.id,
+      email: user.email,
+      role: "user",
+    });
+
+    sendSuccess(res, 201, {
+      jwt,
+    });
+  });
+
+  public existingUsername = catchAsync(async (req: Request, res: Response) => {
+    // Implementation for forgotPassword
+  });
+
+  public existingEmail = catchAsync(async (req: Request, res: Response) => {
+    // Implementation for forgotPassword
   });
 
   public forgotPassword = catchAsync(async (req: Request, res: Response) => {
