@@ -10,6 +10,8 @@ import { questionRouter } from "./routes/question.route";
 import { gameRouter } from "./routes/game.route";
 import { advertRouter } from "./routes/advert.route";
 import { sendSuccess } from "./utils/response";
+import dotenv from "dotenv";
+dotenv.config({ path: "./.env" });
 
 const app = express();
 
@@ -33,7 +35,7 @@ app.use("/api/v1/game", gameRouter);
 app.use("/api/v1/advert", advertRouter);
 
 app.all("*", (req, res, next) => {
-  sendSuccess(res, 200, "app is Alive");
+  throw new AppError("page not found", 404);
   return;
 });
 
