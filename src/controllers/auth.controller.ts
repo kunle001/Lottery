@@ -91,7 +91,13 @@ export class AuthController {
   });
 
   public existingUsername = catchAsync(async (req: Request, res: Response) => {
-    // Implementation for forgotPassword
+    const existingUser = await User.find({
+      username: req.query.user_name as string,
+    });
+
+    sendSuccess(res, 200, {
+      username_exists: existingUser ? true : false,
+    });
   });
 
   public existingEmail = catchAsync(async (req: Request, res: Response) => {

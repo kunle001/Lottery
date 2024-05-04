@@ -4,12 +4,13 @@ import { sendSuccess } from "../utils/response";
 
 export class QuestionController {
   public async createQuestion(req: Request, res: Response) {
-    const { content, options, awnser } = req.body;
+    const { content, options, awnser, isconstant } = req.body;
 
     let quest = Question.build({
       content,
       options,
       awnser,
+      isconstant,
     });
 
     quest = await quest.save();
