@@ -1,6 +1,7 @@
 import { Advert, AdvertDoc } from "../models/advert";
-import { Question, QuestionDoc } from "../models/questions";
+import { Question, QuestionAttr, QuestionDoc } from "../models/questions";
 import AppError from "./appError";
+import fs, { readFile } from "fs";
 
 export function getRandomRange(min: number, max: number, rangeSize: number) {
   if (rangeSize > max - min + 1) {
@@ -20,8 +21,10 @@ export async function selectRandomData(type: "question" | "advert") {
   switch (type) {
     case "question":
       const selectedQuestions: QuestionDoc[] = [];
-      const questions = await Question.find();
-      const [start, end] = getRandomRange(0, questions.length, 5);
+      const questions = await Question.find({
+        isconstant: false,
+      });
+      const [start, end] = getRandomRange(0, questions.length, 8);
 
       for (let i = start; i <= end; i++) {
         // Corrected loop to iterate from start to end
@@ -42,4 +45,22 @@ export async function selectRandomData(type: "question" | "advert") {
 
       return selectedAdvert;
   }
+}
+
+export const createQuestions = async (filepath: string) => {
+  const questions = readQuestions(filepath);
+  const total_question = questions.length;
+  for (let [index, question] of questions.entries()) {
+    console.log(question);
+    await Question.create({
+      ...question,
+    });
+    console.log(`created ${index++} of ${total_question} `);
+  }
+};
+
+function readQuestions(filePath: string): QuestionAttr[] {
+  const jsonData = fs.readFileSync(filePath, "utf-8");
+  const questions: QuestionAttr[] = JSON.parse(jsonData);
+  return questions;
 }
