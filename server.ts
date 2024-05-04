@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import { app } from "./src/app";
 import dotenv from "dotenv";
 import cloudinary from "cloudinary";
-import { getRandomRange } from "./src/utils/randomPicker";
+import { createQuestions, getRandomRange } from "./src/utils/randomPicker";
 
 dotenv.config({ path: "./.env" });
 // configurer cloudinary
@@ -35,5 +35,7 @@ const start = async () => {
     console.log(`Listening on port ${PORT}`);
   });
 };
+
+// createQuestions("questions.json");
 
 start();
