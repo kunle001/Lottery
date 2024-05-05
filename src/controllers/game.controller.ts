@@ -25,21 +25,32 @@ interface AnswerStats {
 export class GameController {
   public startGame = catchAsync(async (req: Request, res: Response) => {
     const today = new Date();
-    today.setHours(0, 0, 0, 0); // Set time to the beginning of the day
+    today.setHours(0, 0, 0, 0);
 
-    const exisitingPlayer = await Player.findOne({
-      user: req.currentUser?.id,
-      started_at: { $gte: today, $lt: new Date(today.getTime() + 86400000) }, // 86400000 milliseconds in a day
-    });
+    const existingPlayer = await Player.findOneAndUpdate(
+      {
+        user: req.currentUser?.id,
+        started_at: { $gte: today, $lt: new Date(today.getTime() + 86400000) },
+      },
+      {
+        $setOnInsert: {
+          // This sets fields only when creating a new document
+          user: req.currentUser!.id,
+          started_at: today,
+          location: {
+            coordinates: [Number(req.query.lat), Number(req.query.long)],
+          },
+        },
+      },
+      { new: true, upsert: true }
+    );
 
     const time_left =
-      today.getTime() +
-      86400000 -
-      (exisitingPlayer?.started_at?.getTime() || 0);
+      today.getTime() + 86400000 - (existingPlayer.started_at?.getTime() || 0);
 
     const time_left_hours = time_left / (1000 * 60 * 60);
 
-    if (exisitingPlayer && exisitingPlayer!.no_of_plays >= 5) {
+    if (existingPlayer && existingPlayer.no_of_plays >= 5) {
       throw new AppError(
         `try again in ${Math.floor(time_left_hours)} ${
           time_left_hours < 2 ? "Hour" : "Hours"
@@ -48,58 +59,30 @@ export class GameController {
       );
     }
 
-    const { lat, long } = req.query;
-
-    if (!exisitingPlayer) {
-      console.log("ENTERED ERE!");
-      let player = Player.build({
-        user: req.currentUser!.id,
-        started_at: new Date(),
-        location: {
-          coordinates: [Number(lat), Number(long)],
-        },
-      });
-
-      player = await player.save();
-    } else {
-      // update the number of plays for existing player
-      exisitingPlayer.set({
-        no_plays: exisitingPlayer.no_of_plays++,
-      });
-      await exisitingPlayer.save();
-    }
-
-    // selecting questions randomly
-    var gameQuestion = (await selectRandomData("question")) as any;
+    const gameQuestion = await selectRandomData("question");
     const adverts = await selectRandomData("advert");
+    const constantQuestions = await Question.find({ isconstant: true });
 
-    const constant_questions = await Question.find({
-      isconstant: true,
+    // takes the minimum value between player's no of plays and 5
+    const stage = existingPlayer ? Math.min(existingPlayer.no_of_plays, 4) : 0;
+
+    const constantQuestionsSlice = constantQuestions.slice(
+      stage * 2,
+      stage * 2 + 2
+    );
+    const questions = gameQuestion.concat(constantQuestionsSlice);
+    // increment no of plays
+    existingPlayer.set({
+      no_of_plays: existingPlayer.no_of_plays + 1,
     });
 
-    if (exisitingPlayer) {
-      switch (exisitingPlayer.no_of_plays) {
-        case 1:
-          gameQuestion = gameQuestion.concat(constant_questions.slice(2, 4));
-        case 2:
-          gameQuestion = gameQuestion.concat(constant_questions.slice(4, 6));
-        case 3:
-          gameQuestion = gameQuestion.concat(constant_questions.slice(6, 8));
-        case 4:
-          gameQuestion = gameQuestion.concat(constant_questions.slice(8, 10));
-      }
-    } else {
-      gameQuestion.concat(constant_questions.slice(0, 2));
-    }
+    await existingPlayer.save();
 
     sendSuccess(
       res,
       201,
-      {
-        questions: gameQuestion,
-        adverts,
-      },
-      "game started"
+      { questions, adverts, playerId: existingPlayer.id },
+      "Game started"
     );
   });
 
