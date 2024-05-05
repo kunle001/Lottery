@@ -43,6 +43,7 @@ const QuestionSchema = new mongoose.Schema(
   { toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
+QuestionSchema.index({ for_day: -1 });
 QuestionSchema.statics.build = (attrs: QuestionAttr) => {
   return new Question(attrs);
 };
