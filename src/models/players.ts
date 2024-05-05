@@ -63,8 +63,8 @@ const PlayerSchema = new mongoose.Schema(
       // description: String
     },
     played_today: {
-      type: Date,
-      default: Date.now(),
+      type: Boolean,
+      default: false,
     },
     no_of_plays: {
       type: Number,

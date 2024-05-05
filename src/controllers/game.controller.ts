@@ -14,12 +14,12 @@ type AsyncHandler = (
 
 interface GameAnswer {
   questionId: string;
-  answer: string;
+  awnser: string;
 }
 
 interface AnswerStats {
   end_time: Date;
-  answers: GameAnswer[];
+  awnsers: GameAnswer[];
 }
 
 export class GameController {
@@ -36,7 +36,7 @@ export class GameController {
         $setOnInsert: {
           // This sets fields only when creating a new document
           user: req.currentUser!.id,
-          started_at: today,
+          started_at: new Date(),
           location: {
             coordinates: [Number(req.query.lat), Number(req.query.long)],
           },
@@ -96,28 +96,31 @@ export class GameController {
     const userAnswers: AnswerStats = req.body;
     let correctQuestions = 0;
 
-    for (let i = 0; i < userAnswers.answers.length; i++) {
-      let answer = userAnswers.answers[i];
+    for (let i = 0; i < userAnswers.awnsers.length; i++) {
+      let answer = userAnswers.awnsers[i];
       let question = await Question.findById(answer.questionId);
 
-      if (question && question.awnser === answer.answer) {
+      if (question && question.awnser === answer.awnser) {
         correctQuestions++;
       }
     }
 
-    const result =
-      correctQuestions / player.started_at.getTime() -
-      userAnswers.end_time.getTime() -
-      30 * 1000;
+    const timeDifferenceInSeconds = Math.abs(
+      (new Date().getTime() - player.started_at.getTime()) / 1000
+    );
+    console.log(timeDifferenceInSeconds / 3600);
+    // Calculate the score based on correct questions and time difference
+    const grade = correctQuestions / userAnswers.awnsers.length;
+    const score = grade / timeDifferenceInSeconds;
 
     player?.set({
       played_today: true,
-      score: result,
+      score,
     });
 
     await player?.save();
 
-    sendSuccess(res, 200, player, "game ended sucessfully");
+    sendSuccess(res, 200, { player, score: score });
   });
 
   public getTodayGameResult = catchAsync(
