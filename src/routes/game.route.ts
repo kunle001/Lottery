@@ -8,6 +8,6 @@ const gameController = new GameController();
 router.use(requireAuth);
 router.route("/start").get(gameController.startGame);
 router.route("/end/:id").post(gameController.endGame);
-router.route("/today-result").get(gameController.getTodayGameResult);
+router.route("/today-result").get(gameController.topScores);
 
 export { router as gameRouter };

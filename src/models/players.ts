@@ -71,7 +71,12 @@ const PlayerSchema = new mongoose.Schema(
       default: 0,
     },
   },
-  { toJSON: { virtuals: true }, toObject: { virtuals: true } }
+  {
+    toJSON: {
+      virtuals: true,
+    },
+    toObject: { virtuals: true },
+  }
 );
 
 PlayerSchema.index({ score: 1 });
@@ -79,14 +84,6 @@ PlayerSchema.index({ score: 1 });
 PlayerSchema.statics.build = (attrs: PlayerAttr) => {
   return new Player(attrs);
 };
-
-PlayerSchema.pre("save", async function (done) {
-  if (this.isModified("password")) {
-    const hashed = await Password.toHash(this.get("password")!);
-    this.set("password", hashed);
-  }
-  done();
-});
 
 const Player = mongoose.model<PlayerDoc, PlayerModel>("Player", PlayerSchema);
 

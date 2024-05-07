@@ -108,10 +108,9 @@ export class GameController {
     const timeDifferenceInSeconds = Math.abs(
       (new Date().getTime() - player.started_at.getTime()) / 1000
     );
-    console.log(timeDifferenceInSeconds / 3600);
     // Calculate the score based on correct questions and time difference
-    const grade = correctQuestions / userAnswers.awnsers.length;
-    const score = grade / timeDifferenceInSeconds;
+    const grade = correctQuestions / 10;
+    const score = (correctQuestions * 60) / timeDifferenceInSeconds;
 
     player?.set({
       played_today: true,
@@ -136,8 +135,17 @@ export class GameController {
     }
   );
 
-  public userScore = catchAsync(async (req: Request, res: Response) => {
+  public topScores = catchAsync(async (req: Request, res: Response) => {
     // Implementation for fetching user's score
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const top_players_on_date = await Player.find({
+      started_at: { $gte: today, $lt: new Date(today.getTime() + 86400000) },
+    })
+      .select("user score")
+      .populate("user");
+
+    sendSuccess(res, 200, top_players_on_date);
   });
 
   public allScores = catchAsync(async (req: Request, res: Response) => {

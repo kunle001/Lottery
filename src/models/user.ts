@@ -39,7 +39,18 @@ const UserSchema = new mongoose.Schema(
     prt: String,
     tokenExpiresAt: Date,
   },
-  { toJSON: { virtuals: true }, toObject: { virtuals: true } }
+  {
+    toJSON: {
+      virtuals: true,
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+        delete ret.password;
+        delete ret.__v;
+      },
+    },
+    toObject: { virtuals: true },
+  }
 );
 
 UserSchema.statics.build = (attrs: UserAttr) => {

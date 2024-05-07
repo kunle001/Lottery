@@ -3,7 +3,10 @@ import { Schema, func } from "joi";
 import AppError from "./appError";
 import jwt, { JwtPayload, VerifyErrors } from "jsonwebtoken";
 import dotenv from "dotenv";
+import Joi from "joi";
+
 dotenv.config({ path: "./.env" });
+
 export const validateRequest = (schema: Schema) => {
   return (req: Request, res: Response, next: NextFunction) => {
     const { error } = schema.validate(req.body);
@@ -50,5 +53,27 @@ export function verifyToken(token: string): string {
   } catch (err: any) {
     console.error("Error verifying JWT token:", err);
     throw new AppError(err.message, 500);
+  }
+}
+
+export class ValidationSchema {
+  private mediumTextRq(required?: boolean): Joi.Schema {
+    return required
+      ? Joi.string().min(5).max(30).required()
+      : Joi.string().min(5).max(30);
+  }
+
+  private largeTextRq(required?: boolean): Joi.Schema {
+    return required
+      ? Joi.string().min(10).max(100).required()
+      : Joi.string().min(10).max(100);
+  }
+
+  public login(): Joi.ObjectSchema<any> {
+    console.log("Got to validation");
+    return Joi.object({
+      email: this.mediumTextRq(true),
+      password: this.mediumTextRq(true),
+    });
   }
 }

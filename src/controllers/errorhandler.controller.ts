@@ -27,7 +27,7 @@ const handleJWTError = (error: any) => {
 
 const handleTokenExpired = (error: any) => {
   const message = "Token Expired , Login again";
-  return new AppError(message, 400);
+  return new AppError(message, 401);
 };
 
 const handleValidation = (error: any) => {
