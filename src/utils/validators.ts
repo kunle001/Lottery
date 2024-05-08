@@ -70,7 +70,6 @@ export class ValidationSchema {
   }
 
   public login(): Joi.ObjectSchema<any> {
-    console.log("Got to validation");
     return Joi.object({
       email: this.mediumTextRq(true),
       password: this.mediumTextRq(true),
@@ -78,7 +77,6 @@ export class ValidationSchema {
   }
 
   public getRecordByDate(): Joi.ObjectSchema<any> {
-    console.log("Got to validation");
     return Joi.object({
       start_date: Joi.number().required(),
       to_date: Joi.number().required(),
