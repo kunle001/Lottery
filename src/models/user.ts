@@ -6,6 +6,7 @@ interface UserAttr {
   username: string;
   avatar?: string;
   password: string;
+  interest?: string[];
   fullName: string;
 }
 
@@ -16,6 +17,7 @@ interface UserDoc extends mongoose.Document {
   password: string;
   fullName: string;
   prt: string;
+  interest: string[];
   tokenExpiresAt: Date;
 }
 
@@ -33,6 +35,10 @@ const UserSchema = new mongoose.Schema(
     username: {
       type: String,
       unique: [true, "username already exist"],
+    },
+    interests: {
+      type: [String],
+      default: [],
     },
     password: String,
     fullName: String,

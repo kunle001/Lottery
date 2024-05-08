@@ -11,6 +11,7 @@ import { gameRouter } from "./routes/game.route";
 import { advertRouter } from "./routes/advert.route";
 import { sendSuccess } from "./utils/response";
 import dotenv from "dotenv";
+import { UserRouter } from "./routes/user.route";
 dotenv.config({ path: "./.env" });
 
 const app = express();
@@ -33,6 +34,7 @@ app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/question", questionRouter);
 app.use("/api/v1/game", gameRouter);
 app.use("/api/v1/advert", advertRouter);
+app.use("/api/v1/user", UserRouter);
 
 app.all("*", (req, res, next) => {
   throw new AppError("page not found", 404);
