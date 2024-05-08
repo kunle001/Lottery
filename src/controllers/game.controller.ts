@@ -148,6 +148,28 @@ export class GameController {
     sendSuccess(res, 200, top_players_on_date);
   });
 
+  public resultByDay = catchAsync(async (req: Request, res: Response) => {
+    let { start_date, to_date, no_records } = req.body;
+    // setting the time to 12:00 AM
+    const today = new Date(Number(start_date));
+    today.setHours(0, 0, 0, 0);
+
+    const end_date = new Date(Number(to_date));
+    end_date.setHours(0, 0, 0, 0);
+
+    const top_players_on_date = await Player.find({
+      started_at: {
+        $gte: today,
+        $lt: new Date(end_date.getTime() + 86400000),
+      },
+    })
+      .limit(no_records)
+      .select("user score")
+      .populate("user");
+
+    sendSuccess(res, 200, top_players_on_date);
+  });
+
   public allScores = catchAsync(async (req: Request, res: Response) => {
     // Implementation for fetching all scores
   });

@@ -76,4 +76,13 @@ export class ValidationSchema {
       password: this.mediumTextRq(true),
     });
   }
+
+  public getRecordByDate(): Joi.ObjectSchema<any> {
+    console.log("Got to validation");
+    return Joi.object({
+      start_date: Joi.number().required(),
+      to_date: Joi.number().required(),
+      no_records: Joi.number().required(),
+    });
+  }
 }
