@@ -14,7 +14,7 @@ export class UserController {
     }
 
     user.set({
-      interest: interest.concat(user!.interest),
+      interests: interest.concat(user!.interest),
     });
 
     await user?.save();
