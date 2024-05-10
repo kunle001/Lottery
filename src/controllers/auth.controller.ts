@@ -96,10 +96,10 @@ export class AuthController {
 
   public existingUsername = catchAsync(async (req: Request, res: Response) => {
     const existingUser = req.query.username
-      ? await User.find({
-          username: req.query.user_name as string,
+      ? await User.findOne({
+          username: req.query.username as string,
         })
-      : await User.find({
+      : await User.findOne({
           email: req.query.email as string,
         });
 
