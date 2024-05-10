@@ -10,7 +10,7 @@ interface UserAttr {
   fullName: string;
 }
 
-interface UserDoc extends mongoose.Document {
+export interface UserDoc extends mongoose.Document {
   email: string;
   username: string;
   avatar: string;

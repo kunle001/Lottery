@@ -28,9 +28,9 @@ app.use(
   })
 );
 
-app.use(currentUser);
-
 app.use("/api/v1/auth", authRouter);
+
+app.use(currentUser);
 app.use("/api/v1/question", questionRouter);
 app.use("/api/v1/game", gameRouter);
 app.use("/api/v1/advert", advertRouter);

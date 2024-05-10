@@ -32,6 +32,7 @@ export class AuthController {
   }
   public login = catchAsync(async (req: Request, res: Response) => {
     // Implementation for login
+    console.log(req.body);
     const { email, password } = req.body;
 
     const exisitingUser = await User.findOne({
@@ -59,7 +60,10 @@ export class AuthController {
 
     const token = jwt.sign(user_data, process.env.JWT_KEY!);
 
-    sendSuccess(res, 200, token);
+    sendSuccess(res, 200, {
+      token,
+      user_data: exisitingUser,
+    });
   });
 
   public signup = catchAsync(async (req: Request, res: Response) => {
@@ -91,12 +95,16 @@ export class AuthController {
   });
 
   public existingUsername = catchAsync(async (req: Request, res: Response) => {
-    const existingUser = await User.find({
-      username: req.query.user_name as string,
-    });
+    const existingUser = req.query.username
+      ? await User.find({
+          username: req.query.user_name as string,
+        })
+      : await User.find({
+          email: req.query.email as string,
+        });
 
     sendSuccess(res, 200, {
-      username_exists: existingUser ? true : false,
+      userExists: existingUser ? true : false,
     });
   });
 
