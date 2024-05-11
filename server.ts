@@ -5,6 +5,7 @@ import { app } from "./src/app";
 import dotenv from "dotenv";
 import cloudinary from "cloudinary";
 import { createQuestions, getRandomRange } from "./src/utils/randomPicker";
+import { sendEmail } from "./src/utils/email";
 
 dotenv.config({ path: "./.env" });
 // configurer cloudinary
@@ -37,5 +38,6 @@ const start = async () => {
 };
 
 // createQuestions("questions.json");
+// sendEmail("adekunle.olanipekun.ko@gmail.com");
 
 start();
