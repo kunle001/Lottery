@@ -26,7 +26,7 @@ export const sendEmail = (email: string) => {
   });
 
   const mailOptions = {
-    from: `"OTP Verification"${process.env.EMAIL_USERNAME}`,
+    from: `"Welcome"${process.env.EMAIL_USERNAME}`,
     to: email,
     subject: "Verify Your Email",
     html: html,
