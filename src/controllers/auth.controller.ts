@@ -8,6 +8,7 @@ import { sendSuccess } from "../utils/response";
 import { catchAsync } from "../utils/catchAsync";
 import axios from "axios";
 import dotenv from "dotenv";
+import { sendEmail } from "../utils/email";
 dotenv.config({ path: "./.env" });
 
 interface FacebbokUserDetails {
@@ -89,8 +90,11 @@ export class AuthController {
       role: "user",
     });
 
+    sendEmail(user.email);
+
     sendSuccess(res, 201, {
       jwt,
+      user,
     });
   });
 
