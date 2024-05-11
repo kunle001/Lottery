@@ -1,41 +1,54 @@
-import nodemailer from "nodemailer";
+import nodemailer, { Transporter } from "nodemailer";
 import AppError from "./appError";
 import { UserDoc } from "../models/user";
 import handlebars from "handlebars";
 import path from "path";
 import fs from "fs";
 
-export const sendEmail = (email: string) => {
-  const pass = process.env.EMAIL_PASSWORD;
+export class SendEmail {
+  transporter: Transporter;
 
-  const templatePath = path.resolve(__dirname, "template/welcome.hbs");
-  const template = fs.readFileSync(templatePath, "utf8");
+  constructor() {
+    // Initialize transporter here if needed
+    this.transporter = nodemailer.createTransport({
+      host: String(process.env.HOST),
+      // service: String(process.env.SERVICE),
+      port: Number(process.env.GMAIL_PORT),
+      auth: {
+        user: process.env.EMAIL_USERNAME,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+      tls: { rejectUnauthorized: false },
+    });
+  }
 
-  const compiledTemplate = handlebars.compile(template);
-  const html = compiledTemplate("welcome"); // Pass dynamic data here
+  private readTemplate(name: string): string {
+    const templatePath = path.resolve(__dirname, `template/${name}.hbs`);
+    const template = fs.readFileSync(templatePath, "utf8");
 
-  const transporter = nodemailer.createTransport({
-    host: String(process.env.HOST),
-    // service: String(process.env.SERVICE),
-    port: Number(process.env.GMAIL_PORT),
-    auth: {
-      user: process.env.EMAIL_USERNAME,
-      pass: pass,
-    },
-    tls: { rejectUnauthorized: false },
-  });
+    const compiledTemplate = handlebars.compile(template);
+    return compiledTemplate({});
+  }
 
-  const mailOptions = {
-    from: `"Welcome"${process.env.EMAIL_USERNAME}`,
-    to: email,
-    subject: "Verify Your Email",
-    html: html,
-  };
+  sendWelcome(email: string) {
+    const html = this.readTemplate("welcome");
 
-  transporter.sendMail(mailOptions, (err, res) => {
-    if (err) {
-      console.log(err);
-      throw new AppError(err.message, 500);
-    }
-  });
-};
+    const mailOptions = {
+      from: `"Welcome To quizME"${process.env.EMAIL_USERNAME}`,
+      to: email,
+      subject: "Welcome",
+      html,
+    };
+
+    this.transporter.sendMail(mailOptions, (err, res) => {
+      if (err) {
+        console.log(err);
+        throw new AppError(err.message, 500);
+      }
+    });
+  }
+
+  sendNewsletter() {
+    // Code to send newsletter email
+  }
+}

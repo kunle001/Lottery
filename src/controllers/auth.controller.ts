@@ -8,7 +8,7 @@ import { sendSuccess } from "../utils/response";
 import { catchAsync } from "../utils/catchAsync";
 import axios from "axios";
 import dotenv from "dotenv";
-import { sendEmail } from "../utils/email";
+import { SendEmail } from "../utils/email";
 dotenv.config({ path: "./.env" });
 
 interface FacebbokUserDetails {
@@ -21,12 +21,13 @@ interface FacebbokUserDetails {
   birthday: string;
 }
 
-export class AuthController {
+export class AuthController extends SendEmail {
   private fbSecret: string;
   private fbID: string;
   private fbRedirectUrl: string;
 
   constructor() {
+    super();
     this.fbSecret = process.env.APP_SECRET!;
     this.fbID = process.env.APP_ID!;
     this.fbRedirectUrl = process.env.REDIRECT_URL!;
@@ -70,7 +71,6 @@ export class AuthController {
   public signup = catchAsync(async (req: Request, res: Response) => {
     // Implementation for signup
     let { fullName, username, email, password } = req.body;
-    console.log(fullName, username, email, password);
     // const existingUser = await User.find({ $or: [{ username }, { email }] });
     // if (existingUser){
     //   throw new AppError("username or email already exist")
@@ -90,7 +90,7 @@ export class AuthController {
       role: "user",
     });
 
-    sendEmail(user.email);
+    this.sendWelcome(user.email);
 
     sendSuccess(res, 201, {
       jwt,
