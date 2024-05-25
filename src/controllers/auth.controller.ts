@@ -51,7 +51,7 @@ export class AuthController extends SendEmail {
     );
 
     if (!passwordCorrect) {
-      throw new AppError("incorrect password");
+      throw new AppError("incorrect password", 400);
     }
     const user_data: UserPayload = {
       email: exisitingUser.email,
