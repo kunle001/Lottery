@@ -8,6 +8,7 @@ interface UserAttr {
   password: string;
   interest?: string[];
   fullName: string;
+  // new kini
   country?: string;
   state?: string;
   zipCode?: string;
