@@ -8,6 +8,11 @@ interface UserAttr {
   password: string;
   interest?: string[];
   fullName: string;
+  country?: string;
+  state?: string;
+  zipCode?: string;
+  phoneNumber?: string;
+  address?: string;
 }
 
 export interface UserDoc extends mongoose.Document {
@@ -19,6 +24,11 @@ export interface UserDoc extends mongoose.Document {
   prt: string;
   interest: string[];
   tokenExpiresAt: Date;
+  country: string;
+  state: string;
+  zipCode: string;
+  address: string;
+  phoneNumber: string;
 }
 
 interface UserModel extends mongoose.Model<UserDoc> {
@@ -44,6 +54,11 @@ const UserSchema = new mongoose.Schema(
     fullName: String,
     prt: String,
     tokenExpiresAt: Date,
+    counrty: String,
+    state: String,
+    zipCode: String,
+    phoneNumber: String,
+    address: String,
   },
   {
     toJSON: {

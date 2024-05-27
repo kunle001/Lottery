@@ -74,6 +74,13 @@ const PlayerSchema = new mongoose.Schema(
   {
     toJSON: {
       virtuals: true,
+      transform(doc, ret) {
+        delete ret._id;
+        delete ret.password;
+        delete ret.__v;
+        delete ret.ended_at;
+        delete ret.location;
+      },
     },
     toObject: { virtuals: true },
   }

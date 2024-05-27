@@ -20,4 +20,12 @@ export class UserController {
     await user?.save();
     sendSuccess(res, 200, user);
   });
+
+  public myProfile = catchAsync(async (req: Request, res: Response) => {
+    const user = await User.findById(req.currentUser?.id);
+    if (!user) {
+      throw new AppError("user not found", 400);
+    }
+    sendSuccess(res, 200, user);
+  });
 }

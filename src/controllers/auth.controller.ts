@@ -34,7 +34,6 @@ export class AuthController extends SendEmail {
   }
   public login = catchAsync(async (req: Request, res: Response) => {
     // Implementation for login
-    console.log(req.body);
     const { email, password } = req.body;
 
     const exisitingUser = await User.findOne({
@@ -70,7 +69,16 @@ export class AuthController extends SendEmail {
 
   public signup = catchAsync(async (req: Request, res: Response) => {
     // Implementation for signup
-    let { fullName, username, email, password } = req.body;
+    let {
+      fullName,
+      username,
+      email,
+      password,
+      zipCode,
+      address,
+      phoneNumber,
+      country,
+    } = req.body;
     // const existingUser = await User.find({ $or: [{ username }, { email }] });
     // if (existingUser){
     //   throw new AppError("username or email already exist")
@@ -81,6 +89,10 @@ export class AuthController extends SendEmail {
       username,
       password,
       email,
+      zipCode,
+      address,
+      phoneNumber,
+      country,
     });
 
     user = await user.save();
