@@ -27,6 +27,7 @@ interface PlayerDoc extends mongoose.Document {
     //   address?: string;
     //   description?: string;
   };
+  game_score: number;
   played_today: boolean;
   no_of_plays: number;
 }
@@ -66,6 +67,7 @@ const PlayerSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    game_score: Number,
     no_of_plays: {
       type: Number,
       default: 0,

@@ -109,17 +109,22 @@ export class GameController {
       (new Date().getTime() - player.started_at.getTime()) / 1000
     );
     // Calculate the score based on correct questions and time difference
-    const grade = correctQuestions / 10;
-    const score = (correctQuestions * 60) / timeDifferenceInSeconds;
+    const game_score = correctQuestions / 10;
+    const score = (game_score * 60) / timeDifferenceInSeconds;
 
     player?.set({
       played_today: true,
+      game_score,
       score,
     });
 
     await player?.save();
 
-    sendSuccess(res, 200, { player, score: score });
+    sendSuccess(res, 200, {
+      // player,
+      overall_score_pertime: score,
+      actual_game_score: game_score,
+    });
   });
 
   public getTodayGameResult = catchAsync(
