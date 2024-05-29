@@ -30,7 +30,7 @@ export class GameController {
     const existingPlayer = await Player.findOneAndUpdate(
       {
         user: req.currentUser?.id,
-        started_at: { $gte: today, $lt: new Date(today.getTime() + 86400000) },
+        // started_at: { $gte: today, $lt: new Date(today.getTime() + 86400000) },
       },
       {
         $setOnInsert: {
