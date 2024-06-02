@@ -50,7 +50,7 @@ export class GameController {
 
     const time_left_hours = time_left / (1000 * 60 * 60);
 
-    if (existingPlayer && existingPlayer.no_of_plays >= 5) {
+    if (existingPlayer && existingPlayer.no_of_plays >= 1000) {
       throw new AppError(
         `try again in ${Math.floor(time_left_hours)} ${
           time_left_hours < 2 ? "Hour" : "Hours"
