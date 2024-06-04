@@ -81,7 +81,12 @@ export class GameController {
     sendSuccess(
       res,
       201,
-      { questions, adverts, playerId: existingPlayer.id },
+      {
+        questions,
+        adverts,
+        playerId: existingPlayer.id,
+        games_played: existingPlayer.no_of_plays,
+      },
       "Game started"
     );
   });
