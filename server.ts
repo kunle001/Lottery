@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import cloudinary from "cloudinary";
 import { createQuestions, getRandomRange } from "./src/utils/randomPicker";
 import { SendEmail } from "./src/utils/email";
+import { Paystack } from "./src/utils/thirdParty/paystack";
 
 // const sendMailController = new SendEmail();
 dotenv.config({ path: "./.env" });
@@ -17,7 +18,25 @@ cloudinary.v2.config({
   secure: true,
 });
 
+// const paystack = new Paystack();
 const PORT = process.env.PORT || 3000;
+
+// paystack.createTransferRecipient({
+//   type: "nuban",
+//   name: "Olanipekun Adekunle",
+//   account_number: "7039365725",
+//   bank_code: "999991",
+//   currency: "NGN",
+// });
+
+// RCP_y4n22vy2wtjammo
+
+// paystack.transferMoney({
+//   source: "balance",
+//   reason: "Test money",
+//   amount: "20",
+//   recipient: "RCP_y4n22vy2wtjammo",
+// });
 
 // const [start_num, end] = getRandomRange(0, 12, 10);
 // console.log("Random range:", start_num, "-", end);
