@@ -32,6 +32,11 @@ export class AuthController extends SendEmail {
     this.fbID = process.env.APP_ID!;
     this.fbRedirectUrl = process.env.REDIRECT_URL!;
   }
+
+  private generateToken(): string {
+    const token = Math.floor(100000 + Math.random() * 900000).toString();
+    return token;
+  }
   public login = catchAsync(async (req: Request, res: Response) => {
     // Implementation for login
     const { email, password } = req.body;
@@ -130,10 +135,55 @@ export class AuthController extends SendEmail {
 
   public forgotPassword = catchAsync(async (req: Request, res: Response) => {
     // Implementation for forgotPassword
+    const exisitingUser = await User.findOne({
+      email: req.body.email,
+    });
+
+    if (!exisitingUser) {
+      throw new AppError("No user with this Email", 400);
+    }
+
+    const token = this.generateToken();
+
+    exisitingUser.set({
+      prt: token,
+      tokenExpiresAt: new Date(new Date().getTime() + 60 * 60 * 1000),
+    });
+    await exisitingUser.save();
+    this.sendToken(exisitingUser.email);
+
+    sendSuccess(res, 200, "Token sent");
   });
 
   public resetPassword = catchAsync(async (req: Request, res: Response) => {
     // Implementation for resetPassword
+    const { email, token, password } = req.body;
+    const exisitingUser = await User.findOne({
+      email: req.body.email,
+    });
+
+    if (!exisitingUser) {
+      throw new AppError("No user with this Email", 400);
+    }
+
+    if (token != exisitingUser.prt) {
+      throw new AppError("Invalid token", 400);
+    }
+
+    if (exisitingUser.tokenExpiresAt < new Date()) {
+      throw new AppError("token is Expired", 400);
+    }
+
+    const hashPassword = await Password.toHash(password);
+
+    exisitingUser.set({
+      password: hashPassword,
+      prt: undefined,
+      tokenExpiresAt: undefined,
+    });
+
+    await exisitingUser.save();
+    sendSuccess(res, 200, "Password Reset successfully");
   });
 
   public currentUser = catchAsync(
