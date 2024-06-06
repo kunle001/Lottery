@@ -51,4 +51,22 @@ export class SendEmail {
   sendNewsletter() {
     // Code to send newsletter email
   }
+
+  sendToken(email: string) {
+    const html = this.readTemplate("passwordReset");
+
+    const mailOptions = {
+      from: process.env.EMAIL_USERNAME,
+      to: email,
+      subject: "Reset Token",
+      html,
+    };
+
+    this.transporter.sendMail(mailOptions, (err, res) => {
+      if (err) {
+        console.log(err);
+        throw new AppError(err.message, 500);
+      }
+    });
+  }
 }
