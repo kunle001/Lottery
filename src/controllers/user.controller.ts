@@ -3,6 +3,7 @@ import { User } from "../models/user";
 import { catchAsync } from "../utils/catchAsync";
 import AppError from "../utils/appError";
 import { sendSuccess } from "../utils/response";
+import axios from "axios";
 
 export class UserController {
   public addInterest = catchAsync(async (req: Request, res: Response) => {
@@ -27,5 +28,18 @@ export class UserController {
       throw new AppError("user not found", 400);
     }
     sendSuccess(res, 200, user);
+  });
+
+  // https://api.paystack.co/bank
+
+  public listOfBanks = catchAsync(async (req: Request, res: Response) => {
+    const url = "https://api.paystack.co/bank";
+    const banks = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${process.env.PAYSTACK_KEY}`,
+      },
+    });
+
+    sendSuccess(res, 200, banks.data.data);
   });
 }

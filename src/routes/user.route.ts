@@ -7,6 +7,9 @@ const userController = new UserController();
 const paymentController = new PaymentController();
 
 router.route("/add-interest").post(userController.addInterest);
+
+router.route("/list-of-banks").get(userController.listOfBanks);
+
 router.route("/my-profile").get(userController.myProfile);
 
 router
