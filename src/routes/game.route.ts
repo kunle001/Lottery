@@ -11,6 +11,7 @@ router.use(requireAuth);
 router.route("/start").get(gameController.startGame);
 router.route("/end/:id").post(gameController.endGame);
 router.route("/today-result").get(gameController.topScores);
+router.route("/user-history").get(gameController.userGameHistory);
 router
   .route("/get-record-bydate")
   .post(

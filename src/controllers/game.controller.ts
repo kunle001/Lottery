@@ -183,4 +183,11 @@ export class GameController {
   public allScores = catchAsync(async (req: Request, res: Response) => {
     // Implementation for fetching all scores
   });
+
+  public userGameHistory = catchAsync(async (req: Request, res: Response) => {
+    // Implementation for fetching all scores
+    const history = Player.find({
+      user: req.params.id,
+    });
+  });
 }

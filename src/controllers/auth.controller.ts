@@ -174,10 +174,8 @@ export class AuthController extends SendEmail {
       throw new AppError("token is Expired", 400);
     }
 
-    const hashPassword = await Password.toHash(password);
-
     exisitingUser.set({
-      password: hashPassword,
+      password,
       prt: undefined,
       tokenExpiresAt: undefined,
     });
