@@ -189,5 +189,7 @@ export class GameController {
     const history = Player.find({
       user: req.params.id,
     });
+
+    sendSuccess(res, 200, history);
   });
 }
