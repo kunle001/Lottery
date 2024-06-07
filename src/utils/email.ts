@@ -5,6 +5,11 @@ import handlebars from "handlebars";
 import path from "path";
 import fs from "fs";
 
+interface IToken {
+  username: string;
+  token: string;
+}
+
 export class SendEmail {
   transporter: Transporter;
 
@@ -22,12 +27,12 @@ export class SendEmail {
     });
   }
 
-  private readTemplate(name: string): string {
+  private readTemplate(name: string, data?: any): string {
     const templatePath = path.resolve(__dirname, `template/${name}.hbs`);
     const template = fs.readFileSync(templatePath, "utf8");
 
     const compiledTemplate = handlebars.compile(template);
-    return compiledTemplate({});
+    return compiledTemplate(data);
   }
 
   sendWelcome(email: string) {
@@ -52,8 +57,8 @@ export class SendEmail {
     // Code to send newsletter email
   }
 
-  sendToken(email: string) {
-    const html = this.readTemplate("passwordReset");
+  sendToken(email: string, data: IToken) {
+    const html = this.readTemplate("passwordReset", data);
 
     const mailOptions = {
       from: process.env.EMAIL_USERNAME,

@@ -150,7 +150,10 @@ export class AuthController extends SendEmail {
       tokenExpiresAt: new Date(new Date().getTime() + 60 * 60 * 1000),
     });
     await exisitingUser.save();
-    this.sendToken(exisitingUser.email);
+    this.sendToken(exisitingUser.email, {
+      username: exisitingUser.username,
+      token,
+    });
 
     sendSuccess(res, 200, "Token sent");
   });
