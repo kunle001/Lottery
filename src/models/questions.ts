@@ -40,7 +40,7 @@ const QuestionSchema = new mongoose.Schema(
       default: new Date(),
     },
   },
-  { toJSON: { virtuals: true }, toObject: { virtuals: true } }
+  { toJSON: { virtuals: true }, toObject: { virtuals: true }, timestamps: true }
 );
 
 QuestionSchema.index({ for_day: -1 });

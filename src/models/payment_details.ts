@@ -57,6 +57,7 @@ const PaymentSchema = new mongoose.Schema(
       },
     },
     toObject: { virtuals: true },
+    timestamps: true,
   }
 );
 

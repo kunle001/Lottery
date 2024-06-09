@@ -20,7 +20,7 @@ const AdvertSchema = new mongoose.Schema(
     name: String,
     url: [String],
   },
-  { toJSON: { virtuals: true }, toObject: { virtuals: true } }
+  { toJSON: { virtuals: true }, toObject: { virtuals: true }, timestamps: true }
 );
 
 AdvertSchema.statics.build = (attrs: AdvertAttr) => {

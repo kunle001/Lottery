@@ -26,10 +26,13 @@ export interface UserDoc extends mongoose.Document {
   interest: string[];
   tokenExpiresAt: Date;
   country: string;
+  walletBalance: number;
   state: string;
   zipCode: string;
   address: string;
   phoneNumber: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 interface UserModel extends mongoose.Model<UserDoc> {
@@ -59,6 +62,10 @@ const UserSchema = new mongoose.Schema(
     state: String,
     zipCode: String,
     phoneNumber: String,
+    walletBalance: {
+      type: Number,
+      default: 0,
+    },
     address: String,
   },
   {
@@ -72,6 +79,7 @@ const UserSchema = new mongoose.Schema(
       },
     },
     toObject: { virtuals: true },
+    timestamps: true,
   }
 );
 
