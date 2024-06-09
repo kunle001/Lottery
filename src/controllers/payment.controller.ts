@@ -33,4 +33,12 @@ export class PaymentController {
       sendSuccess(res, 200, "details updated successfully");
     }
   );
+
+  public withdrawCash = catchAsync(async (req: Request, res: Response) => {
+    if (req.query.type === "account") {
+      // Implement Paystack
+    } else {
+      // Implement Paypal
+    }
+  });
 }
