@@ -14,6 +14,8 @@ interface UserAttr {
   zipCode?: string;
   phoneNumber?: string;
   address?: string;
+  evt: String; //email verification token
+  mtExpiresAt: Date; //mail token expiresAt
 }
 
 export interface UserDoc extends mongoose.Document {
@@ -31,6 +33,9 @@ export interface UserDoc extends mongoose.Document {
   zipCode: string;
   address: string;
   phoneNumber: string;
+  evt: String;
+  mtExpiresAt: Date;
+  ismailVerified: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -67,6 +72,12 @@ const UserSchema = new mongoose.Schema(
       default: 0,
     },
     address: String,
+    ismailVerified: {
+      type: Boolean,
+      default: false,
+    },
+    evt: String,
+    mtExpiresAt: Date,
   },
   {
     toJSON: {

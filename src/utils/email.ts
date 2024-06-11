@@ -7,7 +7,8 @@ import fs from "fs";
 
 interface IToken {
   username: string;
-  token: string;
+  token?: string;
+  link?: string;
 }
 
 export class SendEmail {
@@ -53,6 +54,41 @@ export class SendEmail {
     });
   }
 
+  sendEmailVerified(email: string, data: IToken) {
+    const html = this.readTemplate("emailVerified", data);
+
+    const mailOptions = {
+      from: `"EMAIL VERIFIED"${process.env.EMAIL_USERNAME}`,
+      to: email,
+      subject: "Email Verified",
+      html,
+    };
+
+    this.transporter.sendMail(mailOptions, (err, res) => {
+      if (err) {
+        console.log(err);
+        throw new AppError(err.message, 500);
+      }
+    });
+  }
+
+  sendEmailVerification(email: string, data: IToken) {
+    const html = this.readTemplate("emailVerification", data);
+
+    const mailOptions = {
+      from: `"EMAIL Verification"${process.env.EMAIL_USERNAME}`,
+      to: email,
+      subject: "Email Verification",
+      html,
+    };
+
+    this.transporter.sendMail(mailOptions, (err, res) => {
+      if (err) {
+        console.log(err);
+        throw new AppError(err.message, 500);
+      }
+    });
+  }
   sendNewsletter() {
     // Code to send newsletter email
   }

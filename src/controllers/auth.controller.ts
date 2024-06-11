@@ -9,6 +9,7 @@ import { catchAsync } from "../utils/catchAsync";
 import axios from "axios";
 import dotenv from "dotenv";
 import { SendEmail } from "../utils/email";
+import { v4 } from "uuid";
 dotenv.config({ path: "./.env" });
 
 interface FacebbokUserDetails {
@@ -57,6 +58,10 @@ export class AuthController extends SendEmail {
     if (!passwordCorrect) {
       throw new AppError("incorrect password", 400);
     }
+
+    if (!exisitingUser.ismailVerified) {
+      throw new AppError("cannot login your email is not verified", 400);
+    }
     const user_data: UserPayload = {
       email: exisitingUser.email,
       id: exisitingUser.id,
@@ -88,7 +93,7 @@ export class AuthController extends SendEmail {
     // if (existingUser){
     //   throw new AppError("username or email already exist")
     // }
-
+    const evt = v4();
     let user = User.build({
       fullName,
       username,
@@ -98,6 +103,8 @@ export class AuthController extends SendEmail {
       address,
       phoneNumber,
       country,
+      evt,
+      mtExpiresAt: new Date(new Date().getTime() + 60 * 60 * 1000),
     });
 
     user = await user.save();
@@ -107,7 +114,10 @@ export class AuthController extends SendEmail {
       role: "user",
     });
 
-    this.sendWelcome(user.email);
+    this.sendEmailVerification(user.email, {
+      link: `https://lottery-n73z.onrender.com/api/v1/auth/verify-mail/${evt}?email=${email}`,
+      username: username,
+    });
 
     sendSuccess(res, 201, {
       jwt,
@@ -243,4 +253,63 @@ export class AuthController extends SendEmail {
       res.redirect("/login");
     }
   });
+
+  public verifyEmail = catchAsync(async (req: Request, res: Response) => {
+    // Implementation for resetPassword
+    const exisitingUser = await User.findOne({
+      email: req.query.email as string,
+    });
+
+    if (!exisitingUser) {
+      throw new AppError("No user with this Email", 400);
+    }
+
+    if (req.params.id != exisitingUser.evt) {
+      throw new AppError("Invalid link", 400);
+    }
+
+    if (exisitingUser.mtExpiresAt < new Date()) {
+      throw new AppError("link is Expired", 400);
+    }
+
+    exisitingUser.set({
+      ismailVerified: true,
+      evt: undefined,
+      mtExpiresAt: undefined,
+    });
+
+    await exisitingUser.save();
+    this.sendEmailVerified(exisitingUser.email, {
+      username: exisitingUser.username,
+    });
+    sendSuccess(res, 200, "email approved");
+  });
+
+  public resendEmailVerification = catchAsync(
+    async (req: Request, res: Response) => {
+      // Implementation for resetPassword
+      const exisitingUser = await User.findOne({
+        email: req.query.email as string,
+      });
+
+      if (!exisitingUser) {
+        throw new AppError("No user with this Email", 400);
+      }
+
+      const evt = v4();
+
+      exisitingUser.set({
+        evt,
+        mtExpiresAt: new Date(new Date().getTime() + 60 * 60 * 1000),
+      });
+      await exisitingUser.save();
+
+      this.sendEmailVerification(exisitingUser.email, {
+        username: exisitingUser.fullName,
+        link: `https://lottery-n73z.onrender.com/api/v1/auth/verify-mail/${evt}?email=${exisitingUser.email}`,
+      });
+
+      sendSuccess(res, 200, "Email sent");
+    }
+  );
 }
