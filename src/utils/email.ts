@@ -28,6 +28,15 @@ export class SendEmail {
     });
   }
 
+  private transportmail(mailOptions: any) {
+    this.transporter.sendMail(mailOptions, (err, res) => {
+      if (err) {
+        console.log(err);
+        throw new AppError(err.message, 500);
+      }
+    });
+  }
+
   private readTemplate(name: string, data?: any): string {
     const templatePath = path.resolve(__dirname, `template/${name}.hbs`);
     const template = fs.readFileSync(templatePath, "utf8");
@@ -46,12 +55,7 @@ export class SendEmail {
       html,
     };
 
-    this.transporter.sendMail(mailOptions, (err, res) => {
-      if (err) {
-        console.log(err);
-        throw new AppError(err.message, 500);
-      }
-    });
+    //this.transportmail(mailOptions)
   }
 
   sendEmailVerified(email: string, data: IToken) {
@@ -64,12 +68,7 @@ export class SendEmail {
       html,
     };
 
-    this.transporter.sendMail(mailOptions, (err, res) => {
-      if (err) {
-        console.log(err);
-        throw new AppError(err.message, 500);
-      }
-    });
+    //this.transportmail(mailOptions)
   }
 
   sendEmailVerification(email: string, data: IToken) {
@@ -82,12 +81,7 @@ export class SendEmail {
       html,
     };
 
-    this.transporter.sendMail(mailOptions, (err, res) => {
-      if (err) {
-        console.log(err);
-        throw new AppError(err.message, 500);
-      }
-    });
+    //this.transportmail(mailOptions)
   }
   sendNewsletter() {
     // Code to send newsletter email
@@ -103,11 +97,6 @@ export class SendEmail {
       html,
     };
 
-    this.transporter.sendMail(mailOptions, (err, res) => {
-      if (err) {
-        console.log(err);
-        throw new AppError(err.message, 500);
-      }
-    });
+    //this.transportmail(mailOptions)
   }
 }
