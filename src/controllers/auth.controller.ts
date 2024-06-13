@@ -59,9 +59,9 @@ export class AuthController extends SendEmail {
       throw new AppError("incorrect password", 400);
     }
 
-    if (!exisitingUser.ismailVerified) {
-      throw new AppError("cannot login your email is not verified", 400);
-    }
+    // if (!exisitingUser.ismailVerified) {
+    //   throw new AppError("cannot login your email is not verified", 400);
+    // }
     const user_data: UserPayload = {
       email: exisitingUser.email,
       id: exisitingUser.id,
