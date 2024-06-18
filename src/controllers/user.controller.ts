@@ -30,6 +30,21 @@ export class UserController {
     sendSuccess(res, 200, user);
   });
 
+  public updateProfile = catchAsync(async (req: Request, res: Response) => {
+    const user = await User.findByIdAndUpdate(req.currentUser?.id, {
+      ...req.body,
+    });
+
+    if (!user) {
+      throw new AppError("user not found", 400);
+    }
+    sendSuccess(res, 200, user);
+  });
+
+  public uploadFile = catchAsync(async (req: Request, res: Response) => {
+    sendSuccess(res, 200, { ...req.body });
+  });
+
   // https://api.paystack.co/bank
 
   public listOfBanks = catchAsync(async (req: Request, res: Response) => {

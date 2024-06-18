@@ -16,6 +16,7 @@ interface UserAttr {
   address?: string;
   evt: String; //email verification token
   mtExpiresAt: Date; //mail token expiresAt
+  sex?: "Male" | "Female";
 }
 
 export interface UserDoc extends mongoose.Document {
@@ -38,6 +39,7 @@ export interface UserDoc extends mongoose.Document {
   ismailVerified: boolean;
   createdAt: Date;
   updatedAt: Date;
+  sex: "Male" | "Female";
 }
 
 interface UserModel extends mongoose.Model<UserDoc> {
@@ -71,6 +73,7 @@ const UserSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    sex: String,
     address: String,
     ismailVerified: {
       type: Boolean,

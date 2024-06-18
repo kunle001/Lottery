@@ -1,6 +1,7 @@
 import express from "express";
 import { UserController } from "../controllers/user.controller";
 import { PaymentController } from "../controllers/payment.controller";
+import { uploadImage, uploadSingleImage } from "../utils/upload";
 
 const router = express.Router();
 const userController = new UserController();
@@ -11,6 +12,7 @@ router.route("/add-interest").post(userController.addInterest);
 router.route("/list-of-banks").get(userController.listOfBanks);
 
 router.route("/my-profile").get(userController.myProfile);
+router.route("/update-profile").patch(userController.updateProfile);
 
 router
   .route("/set-payment-detils")
@@ -18,5 +20,13 @@ router
 router
   .route("/update-payment-detils")
   .get(paymentController.UpdateUserPaymentDetails);
+
+router
+  .route("/upload-file")
+  .post(
+    uploadSingleImage.single("image"),
+    uploadImage,
+    userController.uploadFile
+  );
 
 export { router as UserRouter };
