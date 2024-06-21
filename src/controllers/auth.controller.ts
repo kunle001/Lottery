@@ -266,7 +266,7 @@ export class AuthController extends SendEmail {
     }
 
     if (req.params.id != exisitingUser.evt) {
-      throw new AppError("Invalid link", 400);
+      throw new AppError("Invalid token", 400);
     }
 
     if (exisitingUser.mtExpiresAt < new Date()) {

@@ -55,7 +55,7 @@ export class SendEmail {
       html,
     };
 
-    //this.transportmail(mailOptions)
+    this.transportmail(mailOptions);
   }
 
   sendEmailVerified(email: string, data: IToken) {
@@ -68,7 +68,7 @@ export class SendEmail {
       html,
     };
 
-    //this.transportmail(mailOptions)
+    this.transportmail(mailOptions);
   }
 
   sendEmailVerification(email: string, data: IToken) {
@@ -81,7 +81,7 @@ export class SendEmail {
       html,
     };
 
-    //this.transportmail(mailOptions)
+    this.transportmail(mailOptions);
   }
   sendNewsletter() {
     // Code to send newsletter email
@@ -97,6 +97,6 @@ export class SendEmail {
       html,
     };
 
-    //this.transportmail(mailOptions)
+    this.transportmail(mailOptions);
   }
 }
