@@ -9,7 +9,7 @@ import { catchAsync } from "../utils/catchAsync";
 import axios from "axios";
 import dotenv from "dotenv";
 import { SendEmail } from "../utils/email";
-import { v4 } from "uuid";
+
 dotenv.config({ path: "./.env" });
 
 interface FacebbokUserDetails {
@@ -93,7 +93,7 @@ export class AuthController extends SendEmail {
     // if (existingUser){
     //   throw new AppError("username or email already exist")
     // }
-    const evt = v4();
+    const evt = this.generateToken();
     let user = User.build({
       fullName,
       username,
@@ -117,6 +117,7 @@ export class AuthController extends SendEmail {
     this.sendEmailVerification(user.email, {
       link: `https://lottery-n73z.onrender.com/api/v1/auth/verify-mail/${evt}?email=${email}`,
       username: username,
+      token: evt,
     });
 
     sendSuccess(res, 201, {
@@ -269,7 +270,7 @@ export class AuthController extends SendEmail {
     }
 
     if (exisitingUser.mtExpiresAt < new Date()) {
-      throw new AppError("link is Expired", 400);
+      throw new AppError("Token is Expired", 400);
     }
 
     exisitingUser.set({
@@ -296,7 +297,7 @@ export class AuthController extends SendEmail {
         throw new AppError("No user with this Email", 400);
       }
 
-      const evt = v4();
+      const evt = this.generateToken();
 
       exisitingUser.set({
         evt,
@@ -307,6 +308,7 @@ export class AuthController extends SendEmail {
       this.sendEmailVerification(exisitingUser.email, {
         username: exisitingUser.fullName,
         link: `https://lottery-n73z.onrender.com/api/v1/auth/verify-mail/${evt}?email=${exisitingUser.email}`,
+        token: evt,
       });
 
       sendSuccess(res, 200, "Email sent");
