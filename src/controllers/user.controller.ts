@@ -35,9 +35,6 @@ export class UserController {
       ...req.body,
     });
 
-    if (!user) {
-      throw new AppError("user not found", 400);
-    }
     sendSuccess(res, 200, user);
   });
 
