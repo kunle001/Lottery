@@ -65,6 +65,7 @@ export class AuthController extends SendEmail {
     const user_data = {
       role: "user",
       image: exisitingUser.avatar,
+      id: exisitingUser.id,
       ...exisitingUser,
     };
 
