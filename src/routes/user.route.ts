@@ -2,6 +2,7 @@ import express from "express";
 import { UserController } from "../controllers/user.controller";
 import { PaymentController } from "../controllers/payment.controller";
 import { uploadImage, uploadSingleImage } from "../utils/upload";
+import { requireAuth } from "../middlewares/current_user";
 
 const router = express.Router();
 const userController = new UserController();
@@ -11,6 +12,7 @@ router.route("/add-interest").post(userController.addInterest);
 
 router.route("/list-of-banks").get(userController.listOfBanks);
 
+router.use(requireAuth);
 router.route("/my-profile").get(userController.myProfile);
 router.route("/update-profile").patch(userController.updateProfile);
 
