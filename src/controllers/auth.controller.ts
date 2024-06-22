@@ -62,11 +62,10 @@ export class AuthController extends SendEmail {
     // if (!exisitingUser.ismailVerified) {
     //   throw new AppError("cannot login your email is not verified", 400);
     // }
-    const user_data: UserPayload = {
-      email: exisitingUser.email,
-      id: exisitingUser.id,
+    const user_data = {
       role: "user",
       image: exisitingUser.avatar,
+      ...exisitingUser,
     };
 
     const token = jwt.sign(user_data, process.env.JWT_KEY!);
