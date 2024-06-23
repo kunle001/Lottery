@@ -121,6 +121,7 @@ export class GameController {
       played_today: true,
       game_score,
       score,
+      time_taken: timeDifferenceInSeconds * 1000,
     });
 
     await player?.save();
@@ -129,6 +130,7 @@ export class GameController {
       // player,
       overall_score_pertime: score,
       actual_game_score: game_score,
+      time_taken: timeDifferenceInSeconds * 1000, //in milliseconds
     });
   });
 

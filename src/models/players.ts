@@ -30,6 +30,7 @@ interface PlayerDoc extends mongoose.Document {
   game_score: number;
   played_today: boolean;
   no_of_plays: number;
+  time_taken: number;
 }
 interface PlayerModel extends mongoose.Model<PlayerDoc> {
   build(attr: PlayerAttr): PlayerDoc;
@@ -53,6 +54,7 @@ const PlayerSchema = new mongoose.Schema(
       type: Date,
       //   default: Date.now(),
     },
+    time_taken: Number,
     location: {
       type: {
         type: String,
@@ -89,7 +91,7 @@ const PlayerSchema = new mongoose.Schema(
   }
 );
 
-PlayerSchema.index({ score: 1 });
+PlayerSchema.index({ game_score: 1, time_taken: 1 });
 
 PlayerSchema.statics.build = (attrs: PlayerAttr) => {
   return new Player(attrs);
