@@ -18,25 +18,33 @@ cloudinary.v2.config({
   secure: true,
 });
 
-// const paystack = new Paystack();
+const paystack = new Paystack();
 const PORT = process.env.PORT || 3000;
 
-// paystack.createTransferRecipient({
-//   type: "nuban",
-//   name: "Olanipekun Adekunle",
-//   account_number: "7039365725",
-//   bank_code: "999991",
-//   currency: "NGN",
-// });
+// paystack
+//   .createTransferRecipient({
+//     type: "nuban",
+//     name: "Olanipekun Adekunle",
+//     account_number: "7039365725",
+//     bank_code: "999991",
+//     currency: "NGN",
+//   })
+//   .then((res) => {
+//     console.log(res);
+//   });
 
-// RCP_y4n22vy2wtjammo
+// RCP_fjaa5zyp0s1oj4s
 
-// paystack.transferMoney({
-//   source: "balance",
-//   reason: "Test money",
-//   amount: "20",
-//   recipient: "RCP_y4n22vy2wtjammo",
-// });
+// paystack
+//   .transferMoney({
+//     source: "balance",
+//     reason: "Test money",
+//     amount: "100000",
+//     recipient: "RCP_fjaa5zyp0s1oj4s",
+//   })
+//   .then((res) => {
+//     console.log(res);
+//   });
 
 // const [start_num, end] = getRandomRange(0, 12, 10);
 // console.log("Random range:", start_num, "-", end);
