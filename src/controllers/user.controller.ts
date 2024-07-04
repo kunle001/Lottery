@@ -31,6 +31,7 @@ export class UserController {
   });
 
   public updateProfile = catchAsync(async (req: Request, res: Response) => {
+    delete req.body.walletBalance;
     const user = await User.findByIdAndUpdate(req.currentUser?.id, {
       ...req.body,
     });

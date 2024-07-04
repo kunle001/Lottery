@@ -59,9 +59,9 @@ export class AuthController extends SendEmail {
       throw new AppError("incorrect password", 400);
     }
 
-    // if (!exisitingUser.ismailVerified) {
-    //   throw new AppError("cannot login your email is not verified", 400);
-    // }
+    if (!exisitingUser.ismailVerified) {
+      throw new AppError("cannot login your email is not verified", 400);
+    }
     const user_data = {
       role: "user",
       image: exisitingUser.avatar,
@@ -89,10 +89,10 @@ export class AuthController extends SendEmail {
       phoneNumber,
       country,
     } = req.body;
-    // const existingUser = await User.find({ $or: [{ username }, { email }] });
-    // if (existingUser){
-    //   throw new AppError("username or email already exist")
-    // }
+    const existingUser = await User.find({ $or: [{ username }, { email }] });
+    if (existingUser) {
+      throw new AppError("username or email already exist");
+    }
     const evt = this.generateToken();
     let user = User.build({
       fullName,

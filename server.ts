@@ -39,7 +39,7 @@ const PORT = process.env.PORT || 3000;
 //   .transferMoney({
 //     source: "balance",
 //     reason: "Test money",
-//     amount: "100000",
+//     amount: "10000",
 //     recipient: "RCP_fjaa5zyp0s1oj4s",
 //   })
 //   .then((res) => {

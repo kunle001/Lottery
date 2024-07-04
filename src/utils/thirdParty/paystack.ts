@@ -66,6 +66,21 @@ interface TransferOTPData {
   updatedAt: string;
 }
 
+interface NameEnquiryResponse {
+  status: boolean;
+  message: string;
+  data: {
+    account_number: string;
+    account_name: string;
+    bank_id: number;
+  };
+}
+
+interface NameEnquiryRequest {
+  accountNumber: string;
+  bankCode: string;
+}
+
 export class Paystack {
   public createTransferRecipient = async (
     data: ITransferRecipient
@@ -96,6 +111,20 @@ export class Paystack {
     } catch (e) {
       console.error("Error transferring money:", e);
       throw new Error("Transfer failed");
+    }
+  };
+
+  public NameEnquiry = async (
+    data: NameEnquiryRequest
+  ): Promise<NameEnquiryResponse> => {
+    try {
+      const url = `https://api.paystack.co/bank/resolve?account_number=${data.accountNumber}&bank_code=${data.bankCode}`;
+      const response = await axios.get<NameEnquiryResponse>(url, {
+        headers: { Authorization: `Bearer ${process.env.PAYSTACK_KEY}` },
+      });
+      return response.data;
+    } catch (e) {
+      throw new Error("Name Enquiry Failed");
     }
   };
 }

@@ -6,6 +6,7 @@ interface PaymentAttr {
   accountNumber: string;
   accountName: string;
   bankCode: string;
+  paystackAccountId: string;
 }
 
 export interface PaymentDoc extends mongoose.Document {

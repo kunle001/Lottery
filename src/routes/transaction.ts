@@ -6,5 +6,6 @@ const paymentController = new PaymentController();
 
 router.route("/withdraw").post(paymentController.withdrawCash);
 router.route("/webhook").post(paymentController.WebHook);
+router.route("/name-inquiry").post(paymentController.NameEnquiry_);
 
 export { router as TransactionRouter };

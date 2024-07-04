@@ -2,16 +2,27 @@ import { Request, Response } from "express";
 import { Payment } from "../models/payment_details";
 import { sendSuccess } from "../utils/response";
 import { catchAsync } from "../utils/catchAsync";
+import { Paystack } from "../utils/thirdParty/paystack";
 
-export class PaymentController {
+export class PaymentController extends Paystack {
   public setUpUserPaymentDetails = catchAsync(
     async (req: Request, res: Response) => {
       const { accountName, accountNumber, bankCode, userId } = req.body;
+
+      const payStackAuth = await this.createTransferRecipient({
+        type: "nuban",
+        name: accountName,
+        account_number: accountNumber,
+        bank_code: bankCode,
+        currency: "NGN",
+      });
+
       const user = Payment.build({
         accountName,
         accountNumber,
         bankCode,
         user: userId,
+        paystackAccountId: payStackAuth.data.recipient_code,
       });
 
       await user.save();
@@ -20,6 +31,14 @@ export class PaymentController {
     }
   );
 
+  public NameEnquiry_ = catchAsync(async (req: Request, res: Response) => {
+    const data = await this.NameEnquiry({
+      ...req.body,
+    });
+
+    sendSuccess(res, 200, data.data);
+  });
+
   public UpdateUserPaymentDetails = catchAsync(
     async (req: Request, res: Response) => {
       const { accountName, accountNumber, bankCode, userId } = req.body;
@@ -27,7 +46,7 @@ export class PaymentController {
         {
           user: userId,
         },
-        { ...req.body }
+        { accountName, accountNumber, bankCode }
       );
 
       sendSuccess(res, 200, "details updated successfully");
