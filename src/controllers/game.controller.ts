@@ -153,9 +153,7 @@ export class GameController {
     today.setHours(0, 0, 0, 0);
     const top_players_on_date = await Player.find({
       started_at: { $gte: today, $lt: new Date(today.getTime() + 86400000) },
-    })
-      .select("user score")
-      .populate("user");
+    }).populate("user");
 
     sendSuccess(res, 200, top_players_on_date);
   });
