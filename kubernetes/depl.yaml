@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: quizme-api
-          image: quizme.azurecr.io/quizme:v0.0.1
+          image: quizme.azurecr.io/quizme:v0.0.3
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
@@ -103,7 +103,7 @@ data:
   NODE_ENV: ZGV2ZWxvcG1lbnQ=
   REDIRECT_URL: NC4xNTcuOTYuMTI6NTAwNTE=
   MODE: cHJvZHVjdGlvbg==
-  JWT_KEY: JCp1aWcjZnZ2ZCcg
+  JWT_KEY: IjUlUkZUM3EyMzQxNyI=
   DB_URL: bW9uZ29kYitzcnY6Ly93b2xlOlJLdm56dk0xamJGNFN2cFFAcXVpem1lLnlneGVuM3EubW9uZ29kYi5uZXQv
   EXPIRES_IN: MWQ=
   HOST: c210cC5tYWlsZ3VuLm9yZw==

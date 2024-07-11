@@ -3,6 +3,7 @@ import { Payment } from "../models/payment_details";
 import { sendSuccess } from "../utils/response";
 import { catchAsync } from "../utils/catchAsync";
 import { Paystack } from "../utils/thirdParty/paystack";
+import { User } from "../models/user";
 
 export class PaymentController extends Paystack {
   public setUpUserPaymentDetails = catchAsync(
@@ -26,6 +27,10 @@ export class PaymentController extends Paystack {
       });
 
       await user.save();
+
+      await User.findByIdAndUpdate(req.currentUser?.id, {
+        profile: user.id,
+      });
 
       sendSuccess(res, 200, "details saved successfully");
     }

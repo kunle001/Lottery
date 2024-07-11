@@ -90,7 +90,7 @@ export class Paystack {
       const recipient = await axios.post<TransferRecipientResponse>(url, data, {
         headers: { Authorization: `Bearer ${process.env.PAYSTACK_KEY}` },
       });
-      console.log(recipient);
+      console.log(recipient.data);
       return recipient.data;
     } catch (e) {
       console.log(e);

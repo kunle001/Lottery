@@ -16,8 +16,8 @@ router.route("/my-profile").get(userController.myProfile);
 router.route("/update-profile").patch(userController.updateProfile);
 
 router
-  .route("/set-payment-detils")
-  .get(paymentController.setUpUserPaymentDetails);
+  .route("/set-payment-details")
+  .post(paymentController.setUpUserPaymentDetails);
 router
   .route("/update-payment-detils")
   .get(paymentController.UpdateUserPaymentDetails);

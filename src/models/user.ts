@@ -40,6 +40,7 @@ export interface UserDoc extends mongoose.Document {
   createdAt: Date;
   updatedAt: Date;
   sex: "Male" | "Female";
+  profile: string;
 }
 
 interface UserModel extends mongoose.Model<UserDoc> {
@@ -81,6 +82,10 @@ const UserSchema = new mongoose.Schema(
     },
     evt: String,
     mtExpiresAt: Date,
+    profile: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Payment",
+    },
   },
   {
     toJSON: {

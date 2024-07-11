@@ -23,12 +23,22 @@ export class UserController {
   });
 
   public myProfile = catchAsync(async (req: Request, res: Response) => {
-    const user = await User.findById(req.currentUser?.id);
+    const user = await User.findById(req.currentUser?.id).populate("profile");
     if (!user) {
       throw new AppError("user not found", 400);
     }
     sendSuccess(res, 200, user);
   });
+
+  public GetUserCompleteDetails = catchAsync(
+    async (req: Request, res: Response) => {
+      const user = await User.findById(req.currentUser?.id).populate("profile");
+      if (!user) {
+        throw new AppError("user not found", 400);
+      }
+      sendSuccess(res, 200, user);
+    }
+  );
 
   public updateProfile = catchAsync(async (req: Request, res: Response) => {
     delete req.body.walletBalance;
