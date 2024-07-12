@@ -47,11 +47,25 @@ export class PaymentController extends Paystack {
   public UpdateUserPaymentDetails = catchAsync(
     async (req: Request, res: Response) => {
       const { accountName, accountNumber, bankCode, userId } = req.body;
+
+      const payStackAuth = await this.createTransferRecipient({
+        type: "nuban",
+        name: accountName,
+        account_number: accountNumber,
+        bank_code: bankCode,
+        currency: "NGN",
+      });
+
       const user = await Payment.findOneAndUpdate(
         {
           user: userId,
         },
-        { accountName, accountNumber, bankCode }
+        {
+          accountName,
+          accountNumber,
+          bankCode,
+          paystackAccountId: payStackAuth.data.recipient_code,
+        }
       );
 
       sendSuccess(res, 200, "details updated successfully");

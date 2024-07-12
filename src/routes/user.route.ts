@@ -20,7 +20,7 @@ router
   .post(paymentController.setUpUserPaymentDetails);
 router
   .route("/update-payment-detils")
-  .get(paymentController.UpdateUserPaymentDetails);
+  .patch(paymentController.UpdateUserPaymentDetails);
 
 router
   .route("/upload-file")
