@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: quizme-api
-          image: quizme.azurecr.io/quizme:v0.0.3
+          image: quizme.azurecr.io/quizme:v0.0.0
           imagePullPolicy: Always
           ports:
             - containerPort: 3000

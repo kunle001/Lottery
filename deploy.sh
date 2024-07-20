@@ -7,16 +7,16 @@ set -e
 docker build -t quizme .
 
 # Tag the Docker image
-docker tag quizme quizme.azurecr.io/quizme:v0.0.3
+docker tag quizme quizme.azurecr.io/quizme:v0.0.0
 
 # Push the Docker image to the registry
-docker push quizme.azurecr.io/quizme:v0.0.3
+docker push quizme.azurecr.io/quizme:v0.0.0
 
 # apply the kubectl 
 kubectl apply -f kubernetes/depl.yaml
 
 # COMMIT TO GIT 
-git add . && git commit -m "latest stable quizme" && git push myorigin kunledev
+git add . && git commit -m "testing azure kubernetes service" && git push myorigin kunledev
 
 echo "Deployment complete"
 # chmod +x deploy.sh
