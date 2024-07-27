@@ -22,6 +22,10 @@ const AdvertSchema = new mongoose.Schema(
     name: String,
     url: [String],
     redirect_url: String,
+    views: {
+      type: Number,
+      default: 0,
+    },
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true }, timestamps: true }
 );
@@ -29,6 +33,12 @@ const AdvertSchema = new mongoose.Schema(
 AdvertSchema.statics.build = (attrs: AdvertAttr) => {
   return new Advert(attrs);
 };
+
+AdvertSchema.virtual("view", {
+  ref: "View",
+  foreignField: "advertId",
+  localField: "_id",
+});
 
 const Advert = mongoose.model<AdvertDoc, AdvertModel>("Advert", AdvertSchema);
 

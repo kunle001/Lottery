@@ -13,6 +13,7 @@ import { sendSuccess } from "./utils/response";
 import dotenv from "dotenv";
 import { UserRouter } from "./routes/user.route";
 import { TransactionRouter } from "./routes/transaction";
+import { ViewRouter } from "./routes/view.route";
 dotenv.config({ path: "./.env" });
 
 const app = express();
@@ -37,6 +38,7 @@ app.use("/api/v1/game", gameRouter);
 app.use("/api/v1/advert", advertRouter);
 app.use("/api/v1/user", UserRouter);
 app.use("/api/v1/transaction", TransactionRouter);
+app.use("/api/v1/views", ViewRouter);
 
 app.all("*", (req, res, next) => {
   throw new AppError("page not found", 404);

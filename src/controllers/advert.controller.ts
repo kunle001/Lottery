@@ -13,7 +13,7 @@ export class AdvertController {
   });
 
   public getAdvert = catchAsync(async (req: Request, res: Response) => {
-    const advert = await Advert.findById(req.params.id);
+    const advert = await Advert.findById(req.params.id).populate("view");
     sendSuccess(res, 200, advert);
   });
 
@@ -40,5 +40,13 @@ export class AdvertController {
 
   public termsAndCondition = catchAsync(async (req: Request, res: Response) => {
     res.redirect("https://quizmeapp.io/terms-and-conditions/");
+  });
+
+  public GetAdvertViews = catchAsync(async (req: Request, res: Response) => {
+    const veiw = await Advert.find({
+      advertId: req.params.id,
+    }).populate("");
+
+    sendSuccess(res, 200, veiw);
   });
 }
