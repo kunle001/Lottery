@@ -48,14 +48,6 @@ QuestionSchema.statics.build = (attrs: QuestionAttr) => {
   return new Question(attrs);
 };
 
-QuestionSchema.pre("save", async function (done) {
-  if (this.isModified("password")) {
-    const hashed = await Password.toHash(this.get("password")!);
-    this.set("password", hashed);
-  }
-  done();
-});
-
 const Question = mongoose.model<QuestionDoc, QuestionModel>(
   "Question",
   QuestionSchema

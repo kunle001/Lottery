@@ -44,7 +44,7 @@ export class AuthController extends SendEmail {
 
     const exisitingUser = await User.findOne({
       email,
-    });
+    }).populate("referrals");
 
     if (!exisitingUser) {
       throw new AppError("No registered user with this email", 400);
@@ -94,6 +94,23 @@ export class AuthController extends SendEmail {
     //   throw new AppError("username or email already exist");
     // }
     const evt = this.generateToken();
+
+    // check device
+    const deviceId = req.body.deviceId;
+    if (!deviceId) {
+      throw new AppError("deviceId id required", 500);
+    }
+    const user_device = await User.findOne({
+      deviceId,
+    });
+
+    if (user_device && user_device.deviceAccounts >= 3) {
+      throw new AppError(
+        "you have exceeded the amount of accounts that can be created on this device",
+        400
+      );
+    }
+
     let user = User.build({
       fullName,
       username,
@@ -106,6 +123,20 @@ export class AuthController extends SendEmail {
       evt,
       mtExpiresAt: new Date(new Date().getTime() + 60 * 60 * 1000),
     });
+
+    //  check referalCode
+    let referalCode = req.body.referalCode;
+    if (referalCode) {
+      const referee = await User.findOne({
+        referalCode,
+      });
+
+      if (!referalCode) {
+        throw new AppError("invalid referal code", 400);
+      }
+      user.refereeId = referee?.id;
+      referee!.referalBalance += 50;
+    }
 
     user = await user.save();
     const jwt = signToken({

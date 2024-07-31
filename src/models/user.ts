@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Password } from "../utils/Password";
+import { Password, generateReferalCode } from "../utils/Password";
 
 interface UserAttr {
   email: string;
@@ -30,6 +30,7 @@ export interface UserDoc extends mongoose.Document {
   tokenExpiresAt: Date;
   country: string;
   walletBalance: number;
+  referalBalance: number;
   state: string;
   zipCode: string;
   address: string;
@@ -41,6 +42,10 @@ export interface UserDoc extends mongoose.Document {
   updatedAt: Date;
   sex: "Male" | "Female";
   profile: string;
+  referalCode: string;
+  refereeId: string;
+  deviceId: string;
+  deviceAccounts: number;
 }
 
 interface UserModel extends mongoose.Model<UserDoc> {
@@ -74,6 +79,10 @@ const UserSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    referalBalance: {
+      type: Number,
+      default: 0,
+    },
     sex: String,
     address: String,
     ismailVerified: {
@@ -86,20 +95,18 @@ const UserSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Payment",
     },
-  },
-  {
-    toJSON: {
-      virtuals: true,
-      transform(doc, ret) {
-        ret.id = ret._id;
-        delete ret._id;
-        delete ret.password;
-        delete ret.__v;
-      },
+    referalCode: {
+      type: String,
+      unique: true,
     },
-    toObject: { virtuals: true },
-    timestamps: true,
-  }
+    refereeId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+    deviceId: String,
+    deviceAccounts: Number,
+  },
+  { toJSON: { virtuals: true }, toObject: { virtuals: true }, timestamps: true }
 );
 
 UserSchema.statics.build = (attrs: UserAttr) => {
@@ -111,7 +118,18 @@ UserSchema.pre("save", async function (done) {
     const hashed = await Password.toHash(this.get("password")!);
     this.set("password", hashed);
   }
+
+  if (!this.get("referalCode")) {
+    const referalCode = generateReferalCode(8);
+    this.set("referalCode", referalCode);
+  }
   done();
+});
+
+UserSchema.virtual("referrals", {
+  ref: "User",
+  foreignField: "refereeId",
+  localField: "_id",
 });
 
 const User = mongoose.model<UserDoc, UserModel>("User", UserSchema);
