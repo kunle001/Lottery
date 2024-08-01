@@ -133,7 +133,6 @@ export class AuthController extends SendEmail {
       // check if device has not registered more than 3 or 3 accounts, then reward the account
       if (user_device && user_device.length! >= 3) {
         referee.referalBalance += 50;
-        user.deviceAccounts++;
         await referee.save();
       }
     }
