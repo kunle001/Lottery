@@ -17,6 +17,7 @@ interface UserAttr {
   evt: String; //email verification token
   mtExpiresAt: Date; //mail token expiresAt
   sex?: "Male" | "Female";
+  deviceId: string;
 }
 
 export interface UserDoc extends mongoose.Document {
