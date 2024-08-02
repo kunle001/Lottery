@@ -106,6 +106,7 @@ const UserSchema = new mongoose.Schema(
     },
     deviceId: String,
     deviceAccounts: Number,
+    image: String,
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true }, timestamps: true }
 );
