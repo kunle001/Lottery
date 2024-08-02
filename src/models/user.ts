@@ -23,7 +23,7 @@ interface UserAttr {
 export interface UserDoc extends mongoose.Document {
   email: string;
   username: string;
-  avatar: string;
+  image: string;
   password: string;
   fullName: string;
   prt: string;
