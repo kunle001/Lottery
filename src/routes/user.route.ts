@@ -2,7 +2,7 @@ import express from "express";
 import { UserController } from "../controllers/user.controller";
 import { PaymentController } from "../controllers/payment.controller";
 import { uploadImage, uploadSingleImage } from "../utils/upload";
-import { requireAuth } from "../middlewares/current_user";
+import { RestrictAccessto, requireAuth } from "../middlewares/current_user";
 
 const router = express.Router();
 const userController = new UserController();
@@ -29,5 +29,10 @@ router
     uploadImage,
     userController.uploadFile
   );
+router.use(RestrictAccessto(["admin"]));
+router.route("/block/:id").get(userController.BlockUser);
+router.route("/unblock/:id").get(userController.UnBlockUser);
+router.route("/all").get(userController.GetAllUsers);
+router.route("/:id").get(userController.GetUserFullDetails);
 
 export { router as UserRouter };

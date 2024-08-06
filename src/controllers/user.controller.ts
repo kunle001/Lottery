@@ -65,4 +65,55 @@ export class UserController {
 
     sendSuccess(res, 200, banks.data.data);
   });
+
+  public BlockUser = catchAsync(async (req: Request, res: Response) => {
+    const user = await User.findByIdAndUpdate(req.params.id, {
+      isBlocked: true,
+    });
+
+    if (!user) {
+      throw new AppError("no existing user with this Id", 400);
+    }
+
+    sendSuccess(res, 200, "user blocked successfully");
+  });
+
+  public UnBlockUser = catchAsync(async (req: Request, res: Response) => {
+    const user = await User.findByIdAndUpdate(req.params.id, {
+      isBlocked: false,
+    });
+
+    if (!user) {
+      throw new AppError("no existing user with this Id", 400);
+    }
+
+    sendSuccess(res, 200, "user unblockedblocked successfully");
+  });
+
+  public GetUserFullDetails = catchAsync(
+    async (req: Request, res: Response) => {
+      const user = await User.findById(req.params.id)
+        .populate("referrals")
+        .populate("refereeId")
+        .populate("profile")
+        .populate("games");
+      // .populate("transactions");
+
+      if (!user) {
+        throw new AppError("no existing user with this Id", 400);
+      }
+
+      sendSuccess(res, 200, user);
+    }
+  );
+
+  public GetAllUsers = catchAsync(async (req: Request, res: Response) => {
+    const user = await User.find().populate("profile");
+
+    if (!user) {
+      throw new AppError("no existing user with this Id", 400);
+    }
+
+    sendSuccess(res, 200, user);
+  });
 }

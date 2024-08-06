@@ -21,6 +21,15 @@ export const currentUser = catchAsync(
   }
 );
 
+export const RestrictAccessto = (roles: string[]) =>
+  catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    if (!roles.includes(req.currentUser!.role)) {
+      throw new AppError("this user cannot access this");
+    }
+
+    next();
+  });
+
 export const requireAuth = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     if (!req.currentUser) {

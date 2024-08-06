@@ -50,6 +50,10 @@ export class AuthController extends SendEmail {
       throw new AppError("No registered user with this email", 400);
     }
 
+    if (exisitingUser.isBlocked) {
+      throw new AppError("This user is blocked", 400);
+    }
+
     const passwordCorrect = await Password.compare(
       exisitingUser.password,
       password
@@ -63,9 +67,10 @@ export class AuthController extends SendEmail {
       throw new AppError("cannot login your email is not verified", 400);
     }
     const user_data = {
-      role: "user",
+      role: exisitingUser.role,
       id: exisitingUser.id,
-      ...exisitingUser,
+      email: exisitingUser.email,
+      image: exisitingUser.image,
     };
 
     const token = jwt.sign(user_data, process.env.JWT_KEY!);

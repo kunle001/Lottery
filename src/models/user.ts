@@ -47,6 +47,8 @@ export interface UserDoc extends mongoose.Document {
   refereeId: string;
   deviceId: string;
   deviceAccounts: number;
+  isBlocked: boolean;
+  role: string;
 }
 
 interface UserModel extends mongoose.Model<UserDoc> {
@@ -104,9 +106,14 @@ const UserSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
+    role: {
+      type: String,
+      default: "user",
+    },
     deviceId: String,
     deviceAccounts: Number,
     image: String,
+    isBlocked: Boolean,
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true }, timestamps: true }
 );
@@ -131,6 +138,18 @@ UserSchema.pre("save", async function (done) {
 UserSchema.virtual("referrals", {
   ref: "User",
   foreignField: "refereeId",
+  localField: "_id",
+});
+
+UserSchema.virtual("transactions", {
+  ref: "transaction",
+  foreignField: "user",
+  localField: "_id",
+});
+
+UserSchema.virtual("games", {
+  ref: "Player",
+  foreignField: "user",
   localField: "_id",
 });
 
