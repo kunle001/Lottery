@@ -122,6 +122,7 @@ export class GameController {
       game_score,
       score,
       time_taken: timeDifferenceInSeconds * 1000,
+      chances: player.chances - 1,
     });
 
     await player?.save();
@@ -192,4 +193,18 @@ export class GameController {
 
     sendSuccess(res, 200, history);
   });
+
+  public AddMoreChancesToUser = catchAsync(
+    async (req: Request, res: Response) => {
+      const player = await Player.findById(req.params.id);
+      if (!player) {
+        throw new AppError("player not found", 400);
+      }
+      player?.set({
+        chances: player.chances + 1,
+      });
+
+      await player?.save();
+    }
+  );
 }

@@ -31,6 +31,7 @@ interface PlayerDoc extends mongoose.Document {
   played_today: boolean;
   no_of_plays: number;
   time_taken: number;
+  chances: number;
 }
 interface PlayerModel extends mongoose.Model<PlayerDoc> {
   build(attr: PlayerAttr): PlayerDoc;
@@ -73,6 +74,10 @@ const PlayerSchema = new mongoose.Schema(
     no_of_plays: {
       type: Number,
       default: 0,
+    },
+    chances: {
+      type: Number,
+      default: 3,
     },
   },
   {
