@@ -74,6 +74,7 @@ export class GameController {
     // increment no of plays
     existingPlayer.set({
       no_of_plays: existingPlayer.no_of_plays + 1,
+      chances: existingPlayer.chances - 1,
     });
 
     await existingPlayer.save();
@@ -122,7 +123,6 @@ export class GameController {
       game_score,
       score,
       time_taken: timeDifferenceInSeconds * 1000,
-      chances: player.chances - 1,
     });
 
     await player?.save();
