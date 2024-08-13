@@ -5,8 +5,8 @@ const router = express.Router();
 const questionController = new QuestionController();
 
 router.route("/").post(questionController.createQuestion);
-router.route("/:id").get(questionController.getQuestion);
 router.route("/").get(questionController.getQuestion);
+router.route("/:id").get(questionController.getQuestion);
 router.route("/:id").delete(questionController.deleteQuestion);
 router.route("/").patch(questionController.editQuestion);
 

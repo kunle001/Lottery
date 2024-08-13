@@ -205,6 +205,8 @@ export class GameController {
       });
 
       await player?.save();
+
+      sendSuccess(res, 200, "added 1 chance");
     }
   );
 }
