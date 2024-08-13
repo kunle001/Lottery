@@ -5,7 +5,7 @@ import AppError from "../utils/appError";
 
 export class QuestionController {
   public async createQuestion(req: Request, res: Response) {
-    const { content, options, awnser, isconstant, category } = req.body;
+    const { content, options, awnser, isconstant, category, image } = req.body;
 
     let quest = Question.build({
       content,
@@ -13,6 +13,7 @@ export class QuestionController {
       awnser,
       isconstant,
       category,
+      image,
     });
 
     quest = await quest.save();

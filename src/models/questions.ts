@@ -6,14 +6,16 @@ export interface QuestionAttr {
   options: string[];
   awnser: string;
   isconstant?: boolean;
-  forDay?: Date;
+  for_day?: Date;
   category?: string;
+  image?: string;
 }
 
 export interface QuestionDoc extends mongoose.Document {
   content: string;
   options: string[];
   awnser: string;
+  image: string;
   isconstant?: boolean;
   for_day?: Date;
   category?: string;
@@ -27,6 +29,7 @@ const QuestionSchema = new mongoose.Schema(
   {
     content: String,
     password: String,
+    image: String,
     options: [String],
     awnser: {
       type: String,
