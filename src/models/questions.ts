@@ -7,6 +7,7 @@ export interface QuestionAttr {
   awnser: string;
   isconstant?: boolean;
   forDay?: Date;
+  category?: string;
 }
 
 export interface QuestionDoc extends mongoose.Document {
@@ -15,6 +16,7 @@ export interface QuestionDoc extends mongoose.Document {
   awnser: string;
   isconstant?: boolean;
   for_day?: Date;
+  category?: string;
 }
 
 interface QuestionModel extends mongoose.Model<QuestionDoc> {
@@ -39,6 +41,7 @@ const QuestionSchema = new mongoose.Schema(
       type: Date,
       default: new Date(),
     },
+    category: String,
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true }, timestamps: true }
 );
