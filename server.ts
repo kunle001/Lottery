@@ -8,7 +8,6 @@ import { createQuestions, getRandomRange } from "./src/utils/randomPicker";
 import { SendEmail } from "./src/utils/email";
 import { Paystack } from "./src/utils/thirdParty/paystack";
 
-// const sendMailController = new SendEmail();
 dotenv.config({ path: "./.env" });
 // configurer cloudinary
 cloudinary.v2.config({
