@@ -353,11 +353,9 @@ export class AuthController extends SendEmail {
     var secret = speakeasy.generateSecret({
       name: "Quizme",
     });
-
     await User.findByIdAndUpdate(req.currentUser!.id, {
       twofasecret: secret.base32,
     });
-
     sendSuccess(res, 200, secret.otpauth_url);
   });
 
