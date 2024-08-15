@@ -363,7 +363,6 @@ export class AuthController extends SendEmail {
 
   VerifyTwofa = catchAsync(async (req: Request, res: Response) => {
     const user = await User.findById(req.currentUser?.id);
-
     const verified = speakeasy.totp.verify({
       secret: user!.twofasecret,
       encoding: "base32",
