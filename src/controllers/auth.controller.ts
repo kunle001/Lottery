@@ -358,7 +358,7 @@ export class AuthController extends SendEmail {
       twofasecret: secret.base32,
     });
 
-    sendSuccess(res, 200, secret.base32);
+    sendSuccess(res, 200, secret.otpauth_url);
   });
 
   VerifyTwofa = catchAsync(async (req: Request, res: Response) => {
