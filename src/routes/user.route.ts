@@ -3,9 +3,11 @@ import { UserController } from "../controllers/user.controller";
 import { PaymentController } from "../controllers/payment.controller";
 import { uploadImage, uploadSingleImage } from "../utils/upload";
 import { RestrictAccessto, requireAuth } from "../middlewares/current_user";
+import { AuthController } from "../controllers/auth.controller";
 
 const router = express.Router();
 const userController = new UserController();
+const authController = new AuthController();
 const paymentController = new PaymentController();
 
 router.route("/list-of-banks").get(userController.listOfBanks);
@@ -33,6 +35,9 @@ router.use(RestrictAccessto(["admin"]));
 router.route("/block/:id").get(userController.BlockUser);
 router.route("/unblock/:id").get(userController.UnBlockUser);
 router.route("/all").get(userController.GetAllUsers);
+router.route("/enable/2fa").post(authController.Twofa);
+router.route("/verify/2fa").post(authController.VerifyTwofa);
+router.route("/2fa/gettoken").post(authController.GetToken);
 router.route("/:id").get(userController.GetUserFullDetails);
 
 export { router as UserRouter };

@@ -8,6 +8,7 @@ import { sendSuccess } from "../utils/response";
 import { catchAsync } from "../utils/catchAsync";
 import axios from "axios";
 import dotenv from "dotenv";
+import speakeasy from "speakeasy";
 import { SendEmail } from "../utils/email";
 
 dotenv.config({ path: "./.env" });
@@ -348,4 +349,46 @@ export class AuthController extends SendEmail {
       sendSuccess(res, 200, "Email sent");
     }
   );
+  Twofa = catchAsync(async (req: Request, res: Response) => {
+    var secret = speakeasy.generateSecret({
+      name: "Quizme",
+    });
+
+    await User.findByIdAndUpdate(req.currentUser!.id, {
+      twofasecret: secret.base32,
+    });
+
+    sendSuccess(res, 200, secret.base32);
+  });
+
+  VerifyTwofa = catchAsync(async (req: Request, res: Response) => {
+    const user = await User.findById(req.currentUser?.id);
+
+    const verified = speakeasy.totp.verify({
+      secret: user!.twofasecret,
+      encoding: "base32",
+      token: req.body.token,
+    });
+
+    if (!verified) {
+      throw new AppError("invalid token", 400);
+    }
+
+    sendSuccess(res, 200, "token verified");
+  });
+
+  GetToken = catchAsync(async (req: Request, res: Response) => {
+    const user = await User.findById(req.currentUser?.id);
+
+    if (!user || !user.twofasecret) {
+      throw new AppError("User not found or 2FA secret missing", 400);
+    }
+
+    const token = speakeasy.totp({
+      secret: user.twofasecret,
+      encoding: "base32",
+    });
+
+    sendSuccess(res, 200, "Token generated", token);
+  });
 }

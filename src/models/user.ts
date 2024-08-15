@@ -49,6 +49,7 @@ export interface UserDoc extends mongoose.Document {
   deviceAccounts: number;
   isBlocked: boolean;
   role: string;
+  twofasecret: string;
 }
 
 interface UserModel extends mongoose.Model<UserDoc> {
@@ -114,6 +115,7 @@ const UserSchema = new mongoose.Schema(
     deviceAccounts: Number,
     image: String,
     isBlocked: Boolean,
+    twofasecret: String,
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true }, timestamps: true }
 );
