@@ -12,6 +12,12 @@ export class AdvertController {
     sendSuccess(res, 200, advert);
   });
 
+  public createManyAdverts = catchAsync(async (req: Request, res: Response) => {
+    const advert = await Advert.insertMany(req.body);
+
+    sendSuccess(res, 200, advert);
+  });
+
   public getAdvert = catchAsync(async (req: Request, res: Response) => {
     const advert = await Advert.findById(req.params.id).populate("view");
     sendSuccess(res, 200, advert);

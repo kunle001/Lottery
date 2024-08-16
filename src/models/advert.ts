@@ -5,12 +5,14 @@ interface AdvertAttr {
   name: string;
   url: string[];
   redirect_url: string;
+  buttonText?: string;
 }
 
 export interface AdvertDoc extends mongoose.Document {
   name: string;
   url: string[];
   redirect_url: string;
+  buttonText?: string;
 }
 
 interface AdvertModel extends mongoose.Model<AdvertDoc> {
@@ -26,6 +28,7 @@ const AdvertSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    buttonText: String,
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true }, timestamps: true }
 );
