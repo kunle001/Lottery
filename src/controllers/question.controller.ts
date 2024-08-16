@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Question } from "../models/questions";
 import { sendSuccess } from "../utils/response";
 import AppError from "../utils/appError";
+import { catchAsync } from "../utils/catchAsync";
 
 export class QuestionController {
   public async createQuestion(req: Request, res: Response) {
@@ -31,6 +32,14 @@ export class QuestionController {
     }
     sendSuccess(res, 200, question);
   }
+
+  public createManyQuestions = catchAsync(
+    async (req: Request, res: Response) => {
+      const advert = await Question.insertMany(req.body);
+
+      sendSuccess(res, 200, advert);
+    }
+  );
 
   public async deleteQuestion(req: Request, res: Response) {
     const question = await Question.findByIdAndDelete(req.params.id);

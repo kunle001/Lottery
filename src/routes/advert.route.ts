@@ -5,7 +5,7 @@ const router = express.Router();
 const advertController = new AdvertController();
 
 router.route("/").post(advertController.createAdvert);
-router.route("/create-many").post(advertController.createManyAdverts);
+
 router.route("/").get(advertController.getAdverts);
 router.route("/policy").get(advertController.quizmePolicy);
 router.route("/terms-and-condition").get(advertController.termsAndCondition);
