@@ -6,6 +6,7 @@ interface TransactionAttr {
   description: string;
   type: "DR" | "CR";
   reference: string;
+  status?: "PENDING" | "FAILED" | "SUCCESSFUL";
 }
 
 export interface TransactionDoc extends mongoose.Document {
@@ -13,6 +14,7 @@ export interface TransactionDoc extends mongoose.Document {
   amount: number;
   description: string;
   type: "DR" | "CR";
+  status?: "PENDING" | "FAILED" | "SUCCESSFUL";
   reference: string;
   createdAt: Date;
   updatedAt: Date;
@@ -31,6 +33,7 @@ const TransactionSchema = new mongoose.Schema(
     amount: Number,
     description: String,
     type: String,
+    status: String,
     reference: {
       type: String,
       unique: [true, "duplicate transaction reference"],

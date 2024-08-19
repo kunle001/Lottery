@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { Password, generateReferalCode } from "../utils/Password";
+import { PaymentDoc } from "./payment_details";
 
 interface UserAttr {
   email: string;
@@ -42,7 +43,7 @@ export interface UserDoc extends mongoose.Document {
   createdAt: Date;
   updatedAt: Date;
   sex: "Male" | "Female";
-  profile: string;
+  profile: PaymentDoc | string;
   referalCode: string;
   refereeId: string;
   deviceId: string;

@@ -23,7 +23,7 @@ router
 router
   .route("/update-payment-detils")
   .patch(paymentController.UpdateUserPaymentDetails);
-
+router.route("/request/withdrawal").post(userController.RequestWithdrawal);
 router
   .route("/upload-file")
   .post(
@@ -38,5 +38,10 @@ router.route("/all").get(userController.GetAllUsers);
 router.route("/enable/2fa").post(authController.Twofa);
 router.route("/verify/2fa").post(authController.VerifyTwofa);
 router.route("/2fa/gettoken").get(authController.GetToken);
+router.route("/withdrawal/approve/:id").get(userController.ApproveRequest);
+router.route("/withdrawals").get(userController.GetAllRequests);
+router
+  .route("/withdrawal/disapprove/:id")
+  .get(userController.DisApproveRequest);
 router.route("/:id").get(userController.GetUserFullDetails);
 export { router as UserRouter };
