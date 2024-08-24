@@ -31,6 +31,9 @@ router
     uploadImage,
     userController.uploadFile
   );
+router
+  .route("/user-withdrawals/:id")
+  .get(userController.GetUserWithdrawlRequest);
 router.use(RestrictAccessto(["admin"]));
 router.route("/block/:id").get(userController.BlockUser);
 router.route("/unblock/:id").get(userController.UnBlockUser);
@@ -41,9 +44,7 @@ router.route("/2fa/gettoken").get(authController.GetToken);
 router.route("/withdrawal/approve/:id").get(userController.ApproveRequest);
 router.route("/withdrawals").get(userController.GetAllRequests);
 router.route("/withdrawals/:id").get(userController.GetAllRequest);
-router
-  .route("/user-withdrawals/:id")
-  .get(userController.GetUserWithdrawlRequest);
+
 router
   .route("/withdrawal/disapprove/:id")
   .get(userController.DisApproveRequest);
