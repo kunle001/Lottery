@@ -250,4 +250,11 @@ export class UserController {
     const request = await Withdrawal.findById(req.params.id).populate("user");
     sendSuccess(res, 200, request);
   });
+
+  public GetUserWithdrawlRequest = catchAsync(
+    async (req: Request, res: Response) => {
+      const request = await Withdrawal.findOne({ user: req.params.id });
+      sendSuccess(res, 200, request);
+    }
+  );
 }

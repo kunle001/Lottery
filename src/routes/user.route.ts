@@ -42,6 +42,9 @@ router.route("/withdrawal/approve/:id").get(userController.ApproveRequest);
 router.route("/withdrawals").get(userController.GetAllRequests);
 router.route("/withdrawals/:id").get(userController.GetAllRequest);
 router
+  .route("/user-withdrawals/:id")
+  .get(userController.GetUserWithdrawlRequest);
+router
   .route("/withdrawal/disapprove/:id")
   .get(userController.DisApproveRequest);
 router.route("/:id").get(userController.GetUserFullDetails);
