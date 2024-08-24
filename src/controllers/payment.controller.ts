@@ -56,7 +56,7 @@ export class PaymentController extends Paystack {
         currency: "NGN",
       });
 
-      const user = await Payment.findOneAndUpdate(
+      const profile = await Payment.findOneAndUpdate(
         {
           user: userId,
         },
@@ -67,6 +67,10 @@ export class PaymentController extends Paystack {
           paystackAccountId: payStackAuth.data.recipient_code,
         }
       );
+
+      await User.findOneAndUpdate(userId, {
+        profile: profile!.id,
+      });
 
       sendSuccess(res, 200, "details updated successfully");
     }
