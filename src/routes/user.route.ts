@@ -40,6 +40,7 @@ router.route("/verify/2fa").post(authController.VerifyTwofa);
 router.route("/2fa/gettoken").get(authController.GetToken);
 router.route("/withdrawal/approve/:id").get(userController.ApproveRequest);
 router.route("/withdrawals").get(userController.GetAllRequests);
+router.route("/withdrawals/:id").get(userController.GetAllRequest);
 router
   .route("/withdrawal/disapprove/:id")
   .get(userController.DisApproveRequest);

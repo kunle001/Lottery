@@ -242,7 +242,12 @@ export class UserController {
   });
 
   public GetAllRequests = catchAsync(async (req: Request, res: Response) => {
-    const request = await Withdrawal.find();
+    const request = await Withdrawal.find().populate("user");
+    sendSuccess(res, 200, request);
+  });
+
+  public GetAllRequest = catchAsync(async (req: Request, res: Response) => {
+    const request = await Withdrawal.findById(req.params.id).populate("user");
     sendSuccess(res, 200, request);
   });
 }
