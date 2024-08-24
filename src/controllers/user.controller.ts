@@ -220,8 +220,9 @@ export class UserController {
         .populate("referrals")
         .populate("refereeId")
         .populate("profile")
-        .populate("games");
-      // .populate("transactions");
+        .populate("games")
+        .populate("withdrawal_requests")
+        .populate("transactions");
 
       if (!user) {
         throw new AppError("no existing user with this Id", 400);

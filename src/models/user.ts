@@ -156,6 +156,12 @@ UserSchema.virtual("games", {
   localField: "_id",
 });
 
+UserSchema.virtual("withdrawal_requests", {
+  ref: "Withdrawal",
+  foreignField: "user",
+  localField: "_id",
+});
+
 const User = mongoose.model<UserDoc, UserModel>("User", UserSchema);
 
 export { User };
