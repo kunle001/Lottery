@@ -20,6 +20,10 @@ interface AdvertAttr {
   redirect_url: string;
   cta: CTAType;
   buttonText?: string;
+  appName?: string;
+  appStoreId?: string;
+  appStoreLocale?: string;
+  playStoreId?: string;
 }
 
 export interface AdvertDoc extends mongoose.Document {
@@ -28,6 +32,10 @@ export interface AdvertDoc extends mongoose.Document {
   redirect_url: string;
   buttonText?: string;
   cta: CTAType;
+  appName?: string;
+  appStoreId?: string;
+  appStoreLocale?: string;
+  playStoreId?: string;
 }
 
 interface AdvertModel extends mongoose.Model<AdvertDoc> {
@@ -45,6 +53,10 @@ const AdvertSchema = new mongoose.Schema(
     },
     buttonText: String,
     cta: String,
+    appName: String,
+    appStoreId: String,
+    appStoreLocale: String,
+    playStoreId: String,
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true }, timestamps: true }
 );
