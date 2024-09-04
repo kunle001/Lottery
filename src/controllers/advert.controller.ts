@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Advert } from "../models/advert";
 import { sendSuccess } from "../utils/response";
 import { catchAsync } from "../utils/catchAsync";
+import { selectRandomData } from "../utils/randomPicker";
 
 export class AdvertController {
   public createAdvert = catchAsync(async (req: Request, res: Response) => {
@@ -45,8 +46,13 @@ export class AdvertController {
   public GetAdvertViews = catchAsync(async (req: Request, res: Response) => {
     const veiw = await Advert.find({
       advertId: req.params.id,
-    }).populate("");
+    }).populate("views");
 
     sendSuccess(res, 200, veiw);
+  });
+
+  public GetRandomAdvert = catchAsync(async (req: Request, res: Response) => {
+    const adverts = await selectRandomData("advert");
+    sendSuccess(res, 200, adverts);
   });
 }

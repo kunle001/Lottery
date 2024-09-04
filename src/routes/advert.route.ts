@@ -7,6 +7,7 @@ const advertController = new AdvertController();
 router.route("/").post(advertController.createAdvert);
 
 router.route("/").get(advertController.getAdverts);
+router.route("/random").get(advertController.GetRandomAdvert);
 router.route("/policy").get(advertController.quizmePolicy);
 router.route("/terms-and-condition").get(advertController.termsAndCondition);
 router.route("/:id").get(advertController.getAdvert);

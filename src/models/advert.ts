@@ -65,7 +65,7 @@ AdvertSchema.statics.build = (attrs: AdvertAttr) => {
   return new Advert(attrs);
 };
 
-AdvertSchema.virtual("view", {
+AdvertSchema.virtual("views", {
   ref: "View",
   foreignField: "advertId",
   localField: "_id",
