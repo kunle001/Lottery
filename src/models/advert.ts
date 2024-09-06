@@ -47,10 +47,6 @@ const AdvertSchema = new mongoose.Schema(
     name: String,
     url: [String],
     redirect_url: String,
-    views: {
-      type: Number,
-      default: 0,
-    },
     buttonText: String,
     cta: String,
     appName: String,

@@ -52,7 +52,8 @@ export class AdvertController {
   });
 
   public GetRandomAdvert = catchAsync(async (req: Request, res: Response) => {
-    const adverts = await selectRandomData("advert");
+    const { num } = req.query;
+    const adverts = await selectRandomData("advert", Number(num));
     sendSuccess(res, 200, adverts);
   });
 }

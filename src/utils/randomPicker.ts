@@ -17,7 +17,10 @@ export function getRandomRange(min: number, max: number, rangeSize: number) {
   return [start, start + rangeSize - 1];
 }
 
-export async function selectRandomData(type: "question" | "advert") {
+export async function selectRandomData(
+  type: "question" | "advert",
+  numberOfData: number = 6
+) {
   switch (type) {
     case "question":
       const selectedQuestions: QuestionDoc[] = [];
@@ -35,12 +38,11 @@ export async function selectRandomData(type: "question" | "advert") {
     case "advert":
       const selectedAdvert: AdvertDoc[] = [];
       const advert = await Advert.find();
+      const [startAdv, endAdv] = getRandomRange(0, advert.length, numberOfData);
 
-      const advert_ranges = getRandomRange(0, advert.length, 2);
-
-      for (let i = 0; i < advert_ranges.length; i++) {
-        const range = advert_ranges[i];
-        selectedAdvert.push(advert[range]);
+      for (let i = startAdv; i <= endAdv; i++) {
+        // Corrected loop to iterate from start to end
+        selectedAdvert.push(advert[i]);
       }
 
       return selectedAdvert;
