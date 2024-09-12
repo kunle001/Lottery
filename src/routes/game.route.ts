@@ -12,7 +12,7 @@ router.route("/start").get(gameController.startGame);
 router.route("/end/:id").post(gameController.endGame);
 router.route("/today-result").get(gameController.topScores);
 router.route("/user-history/:id").get(gameController.userGameHistory);
-router.route("/increment-chance/:id").get(gameController.AddMoreChancesToUser);
+router.route("/increment-chance").get(gameController.AddMoreChancesToUser);
 router
   .route("/get-record-bydate")
   .post(

@@ -32,6 +32,7 @@ interface PlayerDoc extends mongoose.Document {
   no_of_plays: number;
   time_taken: number;
   chances: number;
+  incremented_chances: number;
 }
 interface PlayerModel extends mongoose.Model<PlayerDoc> {
   build(attr: PlayerAttr): PlayerDoc;
@@ -71,6 +72,7 @@ const PlayerSchema = new mongoose.Schema(
       default: false,
     },
     game_score: Number,
+    incremented_chances: Number,
     no_of_plays: {
       type: Number,
       default: 0,

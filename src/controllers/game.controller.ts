@@ -196,12 +196,16 @@ export class GameController {
 
   public AddMoreChancesToUser = catchAsync(
     async (req: Request, res: Response) => {
-      const player = await Player.findById(req.params.id);
-      if (!player) {
-        throw new AppError("player not found", 400);
-      }
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const player = await Player.findOne({
+        user: req.currentUser?.id,
+        started_at: { $gte: today, $lt: new Date(today.getTime() + 86400000) },
+      });
       player?.set({
-        chances: player.chances + 1,
+        // chances: player.chances + 1,
+        incremented_chances: player.incremented_chances + 1,
       });
 
       await player?.save();
