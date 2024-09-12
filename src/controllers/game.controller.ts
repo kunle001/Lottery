@@ -50,7 +50,10 @@ export class GameController {
 
     const time_left_hours = time_left / (1000 * 60 * 60);
 
-    if (existingPlayer && existingPlayer.no_of_plays >= 1000) {
+    if (
+      (existingPlayer && existingPlayer.no_of_plays >= 1000) ||
+      existingPlayer.incremented_chances >= 10000
+    ) {
       throw new AppError(
         `try again in ${Math.floor(time_left_hours)} ${
           time_left_hours < 2 ? "Hour" : "Hours"
@@ -203,12 +206,19 @@ export class GameController {
         user: req.currentUser?.id,
         started_at: { $gte: today, $lt: new Date(today.getTime() + 86400000) },
       });
-      player?.set({
-        // chances: player.chances + 1,
+
+      if (!player) {
+        throw new AppError(
+          `you need to have played at least one game before you can increase your chances`,
+          400
+        );
+      }
+
+      player.set({
         incremented_chances: player.incremented_chances + 1,
       });
 
-      await player?.save();
+      await player.save();
 
       sendSuccess(res, 200, "added 1 chance");
     }

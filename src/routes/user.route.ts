@@ -15,6 +15,7 @@ router.route("/list-of-banks").get(userController.listOfBanks);
 router.use(requireAuth);
 router.route("/add-interest").post(userController.addInterest);
 router.route("/my-profile").get(userController.myProfile);
+router.route("/my-chances").get(userController.MyChances);
 router.route("/update-profile").patch(userController.updateProfile);
 
 router

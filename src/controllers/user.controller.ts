@@ -8,6 +8,7 @@ import { Withdrawal } from "../models/withdrawalRequest";
 import { Payment, PaymentDoc } from "../models/payment_details";
 import { Transaction } from "../models/transaction";
 import { Paystack } from "../utils/thirdParty/paystack";
+import { Player } from "../models/players";
 
 export class UserController {
   public addInterest = catchAsync(async (req: Request, res: Response) => {
@@ -28,10 +29,24 @@ export class UserController {
 
   public myProfile = catchAsync(async (req: Request, res: Response) => {
     const user = await User.findById(req.currentUser?.id).populate("profile");
+
     if (!user) {
       throw new AppError("user not found", 400);
     }
+
     sendSuccess(res, 200, user);
+  });
+
+  public MyChances = catchAsync(async (req: Request, res: Response) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const player = await Player.findOne({
+      user: req.currentUser?.id,
+      started_at: { $gte: today, $lt: new Date(today.getTime() + 86400000) },
+    });
+    sendSuccess(res, 200, {
+      chances: player ? player.chances : 3,
+    });
   });
 
   public GetUserCompleteDetails = catchAsync(

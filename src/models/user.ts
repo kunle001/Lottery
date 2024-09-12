@@ -43,7 +43,7 @@ export interface UserDoc extends mongoose.Document {
   createdAt: Date;
   updatedAt: Date;
   sex: "Male" | "Female";
-  profile: PaymentDoc | string;
+  profile: PaymentDoc;
   referalCode: string;
   refereeId: string;
   deviceId: string;
