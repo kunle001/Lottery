@@ -72,7 +72,10 @@ const PlayerSchema = new mongoose.Schema(
       default: false,
     },
     game_score: Number,
-    incremented_chances: Number,
+    incremented_chances: {
+      type: Number,
+      default: 0,
+    },
     no_of_plays: {
       type: Number,
       default: 0,
