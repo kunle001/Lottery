@@ -215,12 +215,12 @@ export class GameController {
       }
 
       player.set({
-        incremented_chances: player.incremented_chances + 1,
+        incremented_chances: player.incremented_chances + 3,
       });
 
       await player.save();
 
-      sendSuccess(res, 200, "added 1 chance");
+      sendSuccess(res, 200, "added 3 chance");
     }
   );
 }
