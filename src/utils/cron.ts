@@ -3,6 +3,7 @@ import { Transaction } from "../models/transaction";
 import { Player } from "../models/players";
 import { User } from "../models/user";
 import uuid from "uuid";
+import { Notification } from "../models/notification";
 
 export const startJob = () => {
   console.log(
@@ -29,7 +30,10 @@ export const startJob = () => {
           console.log("could not find user with ID::", winner.user);
           return;
         }
-        user.walletBalance += 10;
+
+        const winAmount = i == 0 ? 20000 : 2000;
+        // if user
+        user.walletBalance += winAmount;
         await user.save();
         const transaction = Transaction.build({
           user: user?.id,
@@ -38,6 +42,11 @@ export const startJob = () => {
           type: "CR",
           reference: uuid.v4(),
         });
+        const notificaton = Notification.build({
+          user: user.id,
+          message: `You won ${winAmount} Naira, by coming ${i} Position in todays game.`,
+        });
+        await notificaton.save();
         await transaction.save();
       }
 

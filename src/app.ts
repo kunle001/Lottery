@@ -14,6 +14,7 @@ import dotenv from "dotenv";
 import { UserRouter } from "./routes/user.route";
 import { TransactionRouter } from "./routes/transaction";
 import { ViewRouter } from "./routes/view.route";
+import { NotificationRouter } from "./routes/notification.route";
 dotenv.config({ path: "./.env" });
 
 const app = express();
@@ -39,10 +40,10 @@ app.use("/api/v1/advert", advertRouter);
 app.use("/api/v1/user", UserRouter);
 app.use("/api/v1/transaction", TransactionRouter);
 app.use("/api/v1/views", ViewRouter);
+app.use("/api/v1/notification", NotificationRouter);
 
 app.all("*", (req, res, next) => {
   throw new AppError("page not found", 404);
-  return;
 });
 
 app.use(errorController);

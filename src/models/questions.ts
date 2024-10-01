@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { Password } from "../utils/Password";
 
 export interface QuestionAttr {
   content: string;
