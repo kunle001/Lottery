@@ -7,6 +7,7 @@ import cloudinary from "cloudinary";
 import { createQuestions, getRandomRange } from "./src/utils/randomPicker";
 import { SendEmail } from "./src/utils/email";
 import { Paystack } from "./src/utils/thirdParty/paystack";
+import { startJob } from "./src/utils/cron";
 
 dotenv.config({ path: "./.env" });
 // configurer cloudinary
@@ -60,6 +61,7 @@ const start = async () => {
     console.log(err);
   }
   app.listen(PORT, () => {
+    startJob();
     console.log(`Listening on port ${PORT}`);
   });
 };
