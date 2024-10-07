@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Query } from "mongoose";
 import { Password } from "../utils/Password";
 
 interface PlayerAttr {
@@ -101,12 +101,15 @@ const PlayerSchema = new mongoose.Schema(
   }
 );
 
-PlayerSchema.index({ game_score: 1, time_taken: -1 });
-
+PlayerSchema.index({ game_score: -1, time_taken: 1 });
 PlayerSchema.statics.build = (attrs: PlayerAttr) => {
   return new Player(attrs);
 };
 
+PlayerSchema.pre<Query<any, any>>(/^find/, function (next) {
+  this.sort({ game_score: -1, time_taken: 1 });
+  next();
+});
 const Player = mongoose.model<PlayerDoc, PlayerModel>("Player", PlayerSchema);
 
 export { Player };

@@ -152,12 +152,14 @@ export class GameController {
   );
 
   public topScores = catchAsync(async (req: Request, res: Response) => {
-    // Implementation for fetching user's score
     const today = new Date();
     today.setHours(0, 0, 0, 0);
+
+    // Fetch top players for today and sort them by `game_score` (highest first) and `time_taken` (smallest first)
     const top_players_on_date = await Player.find({
       started_at: { $gte: today, $lt: new Date(today.getTime() + 86400000) },
     }).populate("user");
+    // .sort({ game_score: -1, time_taken: 1 });
 
     sendSuccess(res, 200, top_players_on_date);
   });
