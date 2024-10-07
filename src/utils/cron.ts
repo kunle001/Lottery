@@ -9,7 +9,7 @@ export const startJob = () => {
   console.log(
     "========================== Midnight Job Registered ========================"
   );
-  cron.schedule("* * * * *", async () => {
+  cron.schedule("0 0 * * *", async () => {
     try {
       console.log(
         "================= ....About to Credit Winners Wallets  ======================="

@@ -101,7 +101,7 @@ const PlayerSchema = new mongoose.Schema(
   }
 );
 
-PlayerSchema.index({ game_score: -1, time_taken: 1 });
+PlayerSchema.index({ game_score: 1, time_taken: -1 });
 
 PlayerSchema.statics.build = (attrs: PlayerAttr) => {
   return new Player(attrs);
