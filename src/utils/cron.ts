@@ -45,7 +45,9 @@ export const startJob = () => {
 
         const notificaton = Notification.build({
           user: user?.id,
-          message: `You won ${winAmount} Naira, by coming ${i} Position in todays game.`,
+          message: `You won ${winAmount} Naira, by coming ${
+            i + 1
+          } Position in todays game.`,
         });
         await notificaton.save();
         await transaction.save();
