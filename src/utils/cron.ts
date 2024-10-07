@@ -2,14 +2,14 @@ import cron from "node-cron";
 import { Transaction } from "../models/transaction";
 import { Player } from "../models/players";
 import { User } from "../models/user";
-import uuid from "uuid";
 import { Notification } from "../models/notification";
+import { v4 } from "uuid";
 
 export const startJob = () => {
   console.log(
     "========================== Midnight Job Registered ========================"
   );
-  cron.schedule("0 0 * * *", async () => {
+  cron.schedule("* * * * *", async () => {
     try {
       console.log(
         "================= ....About to Credit Winners Wallets  ======================="
@@ -37,13 +37,14 @@ export const startJob = () => {
         await user.save();
         const transaction = Transaction.build({
           user: user?.id,
-          amount: 10,
+          amount: winAmount,
           description: "Won Daily Game",
           type: "CR",
-          reference: uuid.v4(),
+          reference: v4(),
         });
+
         const notificaton = Notification.build({
-          user: user.id,
+          user: user?.id,
           message: `You won ${winAmount} Naira, by coming ${i} Position in todays game.`,
         });
         await notificaton.save();
