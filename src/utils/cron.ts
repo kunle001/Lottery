@@ -48,7 +48,7 @@ export const startJob = () => {
           message: `You won ${winAmount} Naira, by coming ${
             i + 1
           } Position in todays game.`,
-          isBad: true,
+          isBad: false,
         });
         await notificaton.save();
         await transaction.save();
