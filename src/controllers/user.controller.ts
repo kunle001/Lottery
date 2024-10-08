@@ -10,6 +10,7 @@ import { Transaction } from "../models/transaction";
 import { Paystack } from "../utils/thirdParty/paystack";
 import { Player } from "../models/players";
 import { Notification } from "../models/notification";
+import { Request as QuestionRequest } from "../models/requests";
 
 export class UserController {
   public addInterest = catchAsync(async (req: Request, res: Response) => {
@@ -285,6 +286,19 @@ export class UserController {
   public GetUserWithdrawlRequest = catchAsync(
     async (req: Request, res: Response) => {
       const request = await Withdrawal.find({ user: req.params.id });
+      sendSuccess(res, 200, request);
+    }
+  );
+
+  public RequestQuestionCreation = catchAsync(
+    async (req: Request, res: Response) => {
+      const { age, sex } = req.body;
+      const request = QuestionRequest.build({
+        user: req.currentUser!.id,
+        age,
+        sex,
+      });
+      await request.save();
       sendSuccess(res, 200, request);
     }
   );

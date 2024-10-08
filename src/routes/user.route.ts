@@ -26,6 +26,9 @@ router
   .patch(paymentController.UpdateUserPaymentDetails);
 router.route("/request/withdrawal").post(userController.RequestWithdrawal);
 router
+  .route("/request/question-creation")
+  .post(userController.RequestQuestionCreation);
+router
   .route("/upload-file")
   .post(
     uploadSingleImage.single("image"),
