@@ -3,11 +3,12 @@ import mongoose from "mongoose";
 export interface NotificationAttr {
   user: string;
   message: string;
+  isBad: Boolean;
 }
 
 export interface NotificationDoc extends mongoose.Document {
   user: string;
-  message: string;
+  isBad: boolean;
   createdAt: Date;
 }
 
@@ -22,6 +23,7 @@ const NotificationSchema = new mongoose.Schema(
       ref: "User",
     },
     message: String,
+    isBad: Boolean,
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true }, timestamps: true }
 );

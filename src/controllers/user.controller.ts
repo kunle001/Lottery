@@ -9,6 +9,7 @@ import { Payment, PaymentDoc } from "../models/payment_details";
 import { Transaction } from "../models/transaction";
 import { Paystack } from "../utils/thirdParty/paystack";
 import { Player } from "../models/players";
+import { Notification } from "../models/notification";
 
 export class UserController {
   public addInterest = catchAsync(async (req: Request, res: Response) => {
@@ -88,6 +89,7 @@ export class UserController {
   public RequestWithdrawal = catchAsync(async (req: Request, res: Response) => {
     const { amount, reference, source } = req.body;
     const user = await User.findById(req.currentUser!.id).populate("profile");
+
     if (!user) {
       throw new AppError("user not found", 400);
     }
@@ -110,6 +112,12 @@ export class UserController {
     });
     await withdraw_request.save();
 
+    const notificaton = Notification.build({
+      user: user?.id,
+      message: "your request has been approved",
+      isBad: false,
+    });
+    await notificaton.save();
     sendSuccess(res, 200, "withdrawal request made");
   });
 
@@ -202,6 +210,13 @@ export class UserController {
       status: "DISAPPROVED",
     });
     await request.save();
+
+    const notificaton = Notification.build({
+      user: request.user as string,
+      message: "your request has been disapproved",
+      isBad: true,
+    });
+    await notificaton.save();
     sendSuccess(res, 200, "request disapproved");
   });
 
