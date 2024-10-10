@@ -292,11 +292,12 @@ export class UserController {
 
   public RequestQuestionCreation = catchAsync(
     async (req: Request, res: Response) => {
-      const { age, sex } = req.body;
+      const { age, sex, interest } = req.body;
       const request = QuestionRequest.build({
         user: req.currentUser!.id,
         age,
         sex,
+        interest,
       });
       await request.save();
       sendSuccess(res, 200, request);

@@ -17,6 +17,9 @@ router.route("/add-interest").post(userController.addInterest);
 router.route("/my-profile").get(userController.myProfile);
 router.route("/my-chances").get(userController.MyChances);
 router.route("/update-profile").patch(userController.updateProfile);
+router
+  .route("/request/question-creation")
+  .post(userController.RequestQuestionCreation);
 
 router
   .route("/set-payment-details")
@@ -25,9 +28,7 @@ router
   .route("/update-payment-detils")
   .patch(paymentController.UpdateUserPaymentDetails);
 router.route("/request/withdrawal").post(userController.RequestWithdrawal);
-router
-  .route("/request/question-creation")
-  .post(userController.RequestQuestionCreation);
+
 router
   .route("/upload-file")
   .post(

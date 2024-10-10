@@ -62,7 +62,7 @@ export class SendEmail {
     const html = this.readTemplate("emailVerified", data);
 
     const mailOptions = {
-      from: `"EMAIL VERIFIED"${process.env.EMAIL_USERNAME}`,
+      from: `QUIZME${process.env.EMAIL_USERNAME}`,
       to: email,
       subject: "Email Verified",
       html,
@@ -75,7 +75,7 @@ export class SendEmail {
     const html = this.readTemplate("emailVerification", data);
 
     const mailOptions = {
-      from: `"EMAIL Verification"${process.env.EMAIL_USERNAME}`,
+      from: `QUIZME${process.env.EMAIL_USERNAME}`,
       to: email,
       subject: "Email Verification",
       html,
@@ -91,7 +91,7 @@ export class SendEmail {
     const html = this.readTemplate("passwordReset", data);
 
     const mailOptions = {
-      from: process.env.EMAIL_USERNAME,
+      from: "QUIZME@mailer.quizmeap.com",
       to: email,
       subject: "Reset Token",
       html,

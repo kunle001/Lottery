@@ -5,12 +5,14 @@ interface RequestAttr {
   user: string;
   age: number;
   sex: "M" | "F";
+  interest: string;
 }
 
 export interface RequestDoc extends mongoose.Document {
   user: string;
   age: number;
   sex: "M" | "F";
+  interest: string;
   status: string;
 }
 
@@ -24,6 +26,7 @@ const RequestSchema = new mongoose.Schema(
     age: Number,
     sex: String,
     status: String,
+    interest: String,
   },
 
   {
