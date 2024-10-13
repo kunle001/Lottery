@@ -31,7 +31,7 @@ export const startJob = () => {
           return;
         }
 
-        const winAmount = i == 0 ? 20000 : 2000;
+        const winAmount = i == 0 ? 1000 : 200;
         // if user
         user.walletBalance += winAmount;
         await user.save();
