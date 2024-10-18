@@ -134,7 +134,8 @@ export class GameController {
       // player,
       overall_score_pertime: score,
       actual_game_score: game_score,
-      time_taken: timeDifferenceInSeconds * 1000, //in milliseconds
+      time_taken:
+        req.body.end_time || Math.min(timeDifferenceInSeconds * 1000, 60), //in milliseconds
     });
   });
 
