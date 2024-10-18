@@ -5,7 +5,7 @@ export interface QuestionAttr {
   options: string[];
   awnser: string;
   isconstant?: boolean;
-  for_day?: Date;
+  // for_day?: Date;
   category?: string;
   image?: string;
 }

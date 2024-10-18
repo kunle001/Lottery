@@ -17,6 +17,7 @@ router.route("/add-interest").post(userController.addInterest);
 router.route("/my-profile").get(userController.myProfile);
 router.route("/my-chances").get(userController.MyChances);
 router.route("/update-profile").patch(userController.updateProfile);
+router.route("/balance").get(userController.GetAccountBalance);
 router
   .route("/request/question-creation")
   .post(userController.RequestQuestionCreation);

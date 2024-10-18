@@ -15,6 +15,10 @@ export const currentUser = catchAsync(
       process.env.JWT_KEY!
     ) as UserPayload;
 
+    if (!isAuthenticated) {
+      throw new AppError("session expired", 401);
+    }
+
     req.currentUser = isAuthenticated;
 
     next();

@@ -183,7 +183,7 @@ export class UserController {
       type: "DR",
       reference: request.reference,
       status: "SUCCESSFUL",
-      amount: request.amount,
+      amount: -request.amount,
     });
     await transaction.save();
     request.set({
@@ -289,6 +289,18 @@ export class UserController {
       sendSuccess(res, 200, request);
     }
   );
+
+  public GetAccountBalance = catchAsync(async (req: Request, res: Response) => {
+    const result = await Transaction.find({ user: req.currentUser?.id });
+
+    let balance = 0;
+
+    result.forEach((transaction) => {
+      balance += transaction.amount;
+    });
+
+    sendSuccess(res, 200, { balance });
+  });
 
   public RequestQuestionCreation = catchAsync(
     async (req: Request, res: Response) => {
