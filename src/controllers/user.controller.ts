@@ -193,6 +193,16 @@ export class UserController {
     });
     await request.save();
 
+    // update wallet balance
+    request.source == "referalBalance"
+      ? user.set({
+          referalBalance: user.referalBalance - request.amount,
+        })
+      : user.set({
+          walletBalance: user.walletBalance - request.amount,
+        });
+    // save user details
+    await user.save();
     sendSuccess(res, 200, "approved");
   });
 
