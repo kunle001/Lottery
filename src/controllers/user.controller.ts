@@ -174,7 +174,7 @@ export class UserController {
       recipient: recipient_code!,
       amount: String(request.amount * 100),
       source: "balance",
-      reason: `cashout from ${request.source}`,
+      reason: `QUIZ ME wallet cashout from ${request.source}`,
     });
 
     const transaction = Transaction.build({
