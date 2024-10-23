@@ -4,9 +4,9 @@ import Joi, { object } from "joi";
 
 // FUNCTION FOR HANDLING TOKEN AND MONGOOSE ERRORS
 const handleDuplicateErrorDB = (error: any) => {
-  const message = `${
-    Object.values(error.keyValue)[0]
-  } is taken already, please try another name`;
+  const field = Object.keys(error.keyValue)[0]; // Get the field that caused the duplicate error
+  const value = error.keyValue[field];
+  const message = `${value} is taken already, please try another ${field}`;
   return new AppError(message, 400);
 };
 

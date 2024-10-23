@@ -30,7 +30,9 @@ export class UserController {
   });
 
   public myProfile = catchAsync(async (req: Request, res: Response) => {
-    const user = await User.findById(req.currentUser?.id).populate("profile");
+    const user = await User.findById(req.currentUser?.id)
+      .populate("profile")
+      .populate("referrals", "email fullName");
 
     if (!user) {
       throw new AppError("user not found", 400);

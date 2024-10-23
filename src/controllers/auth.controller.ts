@@ -45,7 +45,7 @@ export class AuthController extends SendEmail {
 
     const exisitingUser = await User.findOne({
       email,
-    }).populate("referrals");
+    }).populate("referrals", "email fullName");
 
     if (!exisitingUser) {
       throw new AppError("No registered user with this email", 400);
@@ -136,10 +136,10 @@ export class AuthController extends SendEmail {
       }
       user.refereeId = referee?.id;
       // check if device has not registered more than 3 or 3 accounts, then reward the account
-      if (user_device && user_device.length! >= 3) {
-        referee.referalBalance += 50;
-        await referee.save();
-      }
+      // if (user_device && user_device.length! >= 3) {
+      referee.referalBalance += 50;
+      await referee.save();
+      // }
     }
 
     user = await user.save();
