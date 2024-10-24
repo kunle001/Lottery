@@ -24,6 +24,7 @@ interface AdvertAttr {
   appStoreId?: string;
   appStoreLocale?: string;
   playStoreId?: string;
+  adTime?: number;
 }
 
 export interface AdvertDoc extends mongoose.Document {
@@ -36,6 +37,7 @@ export interface AdvertDoc extends mongoose.Document {
   appStoreId?: string;
   appStoreLocale?: string;
   playStoreId?: string;
+  adTime?: number;
 }
 
 interface AdvertModel extends mongoose.Model<AdvertDoc> {
@@ -53,6 +55,7 @@ const AdvertSchema = new mongoose.Schema(
     appStoreId: String,
     appStoreLocale: String,
     playStoreId: String,
+    adTime: Number,
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true }, timestamps: true }
 );
