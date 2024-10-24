@@ -150,7 +150,7 @@ export class AuthController extends SendEmail {
     });
 
     this.sendEmailVerification(user.email, {
-      link: `https://lottery-n73z.onrender.com/api/v1/auth/verify-mail/${evt}?email=${email}`,
+      link: `${process.env.ROOT_URL}/auth/verify-mail/${evt}?email=${email}`,
       username: username,
       token: evt,
     });
