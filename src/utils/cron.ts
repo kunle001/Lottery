@@ -41,6 +41,7 @@ export const startJob = () => {
           description: "Won Daily Game",
           type: "CR",
           reference: v4(),
+          status: "SUCCESSFUL",
         });
 
         const notificaton = Notification.build({

@@ -11,6 +11,7 @@ import { Paystack } from "../utils/thirdParty/paystack";
 import { Player } from "../models/players";
 import { Notification } from "../models/notification";
 import { Request as QuestionRequest } from "../models/requests";
+import mongoose from "mongoose";
 
 export class UserController {
   public addInterest = catchAsync(async (req: Request, res: Response) => {
@@ -38,6 +39,23 @@ export class UserController {
       throw new AppError("user not found", 400);
     }
 
+    const result = await Transaction.aggregate([
+      {
+        $match: {
+          user: new mongoose.Types.ObjectId(req.currentUser?.id),
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          balance: { $sum: "$amount" },
+        },
+      },
+    ]);
+
+    const balance = result[0]?.balance || 0;
+
+    user.walletBalance = balance;
     sendSuccess(res, 200, user);
   });
 
@@ -102,7 +120,23 @@ export class UserController {
         throw new AppError("insufficient funds", 400);
       }
     } else {
-      if (user.walletBalance < amount) {
+      // cheking wallet balance
+      const result = await Transaction.aggregate([
+        {
+          $match: {
+            user: new mongoose.Types.ObjectId(req.currentUser?.id),
+          },
+        },
+        {
+          $group: {
+            _id: null,
+            balance: { $sum: "$amount" },
+          },
+        },
+      ]);
+
+      const balance = result[0]?.balance || 0;
+      if (balance < amount) {
         throw new AppError("insufficient funds", 400);
       }
     }
@@ -303,13 +337,21 @@ export class UserController {
   );
 
   public GetAccountBalance = catchAsync(async (req: Request, res: Response) => {
-    const result = await Transaction.find({ user: req.currentUser?.id });
+    const result = await Transaction.aggregate([
+      {
+        $match: {
+          user: new mongoose.Types.ObjectId(req.currentUser?.id),
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          balance: { $sum: "$amount" },
+        },
+      },
+    ]);
 
-    let balance = 0;
-
-    result.forEach((transaction) => {
-      balance += transaction.amount;
-    });
+    const balance = result[0]?.balance || 0;
 
     sendSuccess(res, 200, { balance });
   });

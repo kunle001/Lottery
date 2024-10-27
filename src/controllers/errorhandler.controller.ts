@@ -89,6 +89,8 @@ export const errorController = (
       error = handleTokenExpired(err);
     } else if (err instanceof Joi.ValidationError) {
       error = handleValidation(err);
+    } else if (err.isOperational) {
+      error = new AppError(err.message, err.statusCode);
     } else {
       console.log(err);
       error = new AppError("something went wrong", 400);
