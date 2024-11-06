@@ -369,4 +369,12 @@ export class UserController {
       sendSuccess(res, 200, request);
     }
   );
+
+  public DeleteUser = catchAsync(async (req: Request, res: Response) => {
+    const request = User.findOneAndDelete({
+      email: req.query.email as string,
+    });
+
+    sendSuccess(res, 200, request);
+  });
 }
