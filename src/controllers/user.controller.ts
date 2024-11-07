@@ -371,7 +371,7 @@ export class UserController {
   );
 
   public DeleteUser = catchAsync(async (req: Request, res: Response) => {
-    const request = User.findOneAndDelete({
+    const request = await User.findOneAndDelete({
       email: req.query.email as string,
     });
 
