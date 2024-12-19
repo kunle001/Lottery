@@ -94,10 +94,10 @@ export class AuthController extends SendEmail {
       phoneNumber,
       country,
     } = req.body;
-    // const existingUser = await User.find({ $or: [{ username }, { email }] });
-    // if (existingUser) {
-    //   throw new AppError("username or email already exist");
-    // }
+    const existingUser = await User.find({ $or: [{ username }, { email }] });
+    if (existingUser) {
+      throw new AppError("username or email already exist", 400);
+    }
     const evt = this.generateToken();
 
     // check device
@@ -136,10 +136,10 @@ export class AuthController extends SendEmail {
       }
       user.refereeId = referee?.id;
       // check if device has not registered more than 3 or 3 accounts, then reward the account
-      // if (user_device && user_device.length! >= 3) {
-      referee.referalBalance += 50;
-      await referee.save();
-      // }
+      if (user_device && user_device.length! >= 3) {
+        referee.referalBalance += 50;
+        await referee.save();
+      }
     }
 
     user = await user.save();

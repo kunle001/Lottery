@@ -51,8 +51,8 @@ export class GameController {
     const time_left_hours = time_left / (1000 * 60 * 60);
 
     if (
-      (existingPlayer && existingPlayer.no_of_plays >= 1000) ||
-      existingPlayer.incremented_chances >= 10000
+      (existingPlayer && existingPlayer.no_of_plays >= 3) ||
+      existingPlayer.incremented_chances >= 3
     ) {
       throw new AppError(
         `try again in ${Math.floor(time_left_hours)} ${
