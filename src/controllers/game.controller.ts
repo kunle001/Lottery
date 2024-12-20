@@ -5,6 +5,7 @@ import { sendSuccess } from "../utils/response";
 import { Player } from "../models/players";
 import AppError from "../utils/appError";
 import { selectRandomData } from "../utils/randomPicker";
+import { INCREMENTED_CHANCES } from "../config";
 
 type AsyncHandler = (
   req: Request,
@@ -50,10 +51,7 @@ export class GameController {
 
     const time_left_hours = time_left / (1000 * 60 * 60);
 
-    if (
-      (existingPlayer && existingPlayer.no_of_plays >= 6) ||
-      existingPlayer.incremented_chances >= 6
-    ) {
+    if (existingPlayer.chances >= 0) {
       throw new AppError(
         `try again in ${Math.floor(time_left_hours)} ${
           time_left_hours < 2 ? "Hour" : "Hours"
@@ -227,12 +225,13 @@ export class GameController {
       }
 
       player.set({
-        incremented_chances: player.incremented_chances + 3,
+        incremented_chances: player.incremented_chances + INCREMENTED_CHANCES,
+        chances: player.chances + INCREMENTED_CHANCES,
       });
 
       await player.save();
 
-      sendSuccess(res, 200, "added 3 chance");
+      sendSuccess(res, 200, `added ${INCREMENTED_CHANCES} chance`);
     }
   );
 }
