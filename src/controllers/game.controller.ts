@@ -121,6 +121,15 @@ export class GameController {
     const game_score = correctQuestions / 10;
     const score = (game_score * 60) / timeDifferenceInSeconds;
 
+    console.log(
+      `====================================USER ${player.user} score ========================`,
+      game_score
+    );
+    console.log(
+      `====================================CORRECT QUESTIONS  ========================`,
+      correctQuestions
+    );
+
     player?.set({
       played_today: true,
       game_score,
