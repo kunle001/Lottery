@@ -108,8 +108,6 @@ export class GameController {
       let question = await Question.findById(answer.questionId);
 
       if (question && question.awnser === answer.awnser) {
-        console.log("=============== CORRECT AWNSWER:", question?.awnser);
-        console.log("=============== PLAYER SUPPLIED AWNSWER:", answer?.awnser);
         correctQuestions++;
       }
     }

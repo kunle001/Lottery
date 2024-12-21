@@ -67,7 +67,7 @@ export class UserController {
       started_at: { $gte: today, $lt: new Date(today.getTime() + 86400000) },
     });
     sendSuccess(res, 200, {
-      chances: player?.chances,
+      chances: player ? player.chances : 5,
     });
   });
 
