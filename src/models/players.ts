@@ -1,5 +1,6 @@
 import mongoose, { Query } from "mongoose";
 import { Password } from "../utils/Password";
+import { MAXIMUM_CHANCES } from "../config";
 
 interface PlayerAttr {
   user: string;
@@ -82,7 +83,7 @@ const PlayerSchema = new mongoose.Schema(
     },
     chances: {
       type: Number,
-      default: 3,
+      default: MAXIMUM_CHANCES,
     },
   },
   {

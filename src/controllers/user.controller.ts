@@ -12,6 +12,7 @@ import { Player } from "../models/players";
 import { Notification } from "../models/notification";
 import { Request as QuestionRequest } from "../models/requests";
 import mongoose from "mongoose";
+import { MAXIMUM_CHANCES } from "../config";
 
 export class UserController {
   public addInterest = catchAsync(async (req: Request, res: Response) => {
@@ -67,7 +68,7 @@ export class UserController {
       started_at: { $gte: today, $lt: new Date(today.getTime() + 86400000) },
     });
     sendSuccess(res, 200, {
-      chances: player ? player.chances : 5,
+      chances: player ? player.chances : MAXIMUM_CHANCES,
     });
   });
 
@@ -149,12 +150,6 @@ export class UserController {
     });
     await withdraw_request.save();
 
-    const notificaton = Notification.build({
-      user: user?.id,
-      message: "your request has been approved",
-      isBad: false,
-    });
-    await notificaton.save();
     sendSuccess(res, 200, "withdrawal request made");
   });
 
@@ -239,6 +234,13 @@ export class UserController {
         });
     // save user details
     await user.save();
+
+    const notificaton = Notification.build({
+      user: user?.id,
+      message: "your request has been approved",
+      isBad: false,
+    });
+    await notificaton.save();
     sendSuccess(res, 200, "approved");
   });
 
