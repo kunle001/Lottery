@@ -10,6 +10,7 @@ import axios from "axios";
 import dotenv from "dotenv";
 import speakeasy from "speakeasy";
 import { SendEmail } from "../utils/email";
+import { JWT_EXPIRES_IN, JWT_KEY } from "../config";
 
 dotenv.config({ path: "./.env" });
 
@@ -74,7 +75,7 @@ export class AuthController extends SendEmail {
       image: exisitingUser.image,
     };
 
-    const token = jwt.sign(user_data, process.env.JWT_KEY!);
+    const token = jwt.sign(user_data, JWT_KEY!, { expiresIn: JWT_EXPIRES_IN });
 
     sendSuccess(res, 200, {
       token,
