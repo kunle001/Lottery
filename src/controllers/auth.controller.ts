@@ -95,9 +95,15 @@ export class AuthController extends SendEmail {
       phoneNumber,
       country,
     } = req.body;
-    const existingUser = await User.find({ $or: [{ username }, { email }] });
-    if (existingUser) {
-      throw new AppError("username or email already exist", 400);
+    // const existingUserEmail = await User.findOne({ $or: [{ username }, { email }] });
+    const existingUserEmail = await User.findOne({ email });
+    if (existingUserEmail) {
+      throw new AppError("email already exist", 400);
+    }
+
+    const existingUserName = await User.findOne({ email });
+    if (existingUserName) {
+      throw new AppError("username already exist", 400);
     }
     const evt = this.generateToken();
 
