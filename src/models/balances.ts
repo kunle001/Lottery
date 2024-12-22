@@ -19,24 +19,7 @@ interface BalanceModel extends mongoose.Model<BalanceDoc> {
 
 const BalanceSchema = new mongoose.Schema(
   {
-    content: String,
-    password: String,
-    image: String,
-    options: [String],
-    awnser: {
-      type: String,
-      required: [true, "awnser is required"],
-    },
-    prt: String,
-    isconstant: {
-      type: Boolean,
-      default: false,
-    },
-    for_day: {
-      type: Date,
-      default: new Date(),
-    },
-    category: String,
+    day: Date,
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true }, timestamps: true }
 );

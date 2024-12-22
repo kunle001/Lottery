@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { Password, generateReferalCode } from "../utils/Password";
 import { PaymentDoc } from "./payment_details";
+import { Transaction } from "./transaction";
 
 interface UserAttr {
   email: string;
@@ -136,6 +137,27 @@ UserSchema.pre("save", async function (done) {
     this.set("referalCode", referalCode);
   }
   done();
+});
+
+UserSchema.post("findOne", async function (doc) {
+  if (!doc) return; // Handle null result
+
+  const result = await Transaction.aggregate([
+    {
+      $match: {
+        user: doc._id,
+      },
+    },
+    {
+      $group: {
+        _id: null,
+        balance: { $sum: "$amount" },
+      },
+    },
+  ]);
+
+  // Set the wallet balance dynamically
+  doc.walletBalance = result[0]?.balance || 0;
 });
 
 UserSchema.virtual("referrals", {
