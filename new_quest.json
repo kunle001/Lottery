@@ -1,0 +1,397 @@
+[
+  {
+    "content": "What is the capital of France?",
+    "options": ["Berlin", "Madrid", "Paris", "Lisbon"],
+    "awnser": "Paris",
+    "category": "Geography"
+  },
+  {
+    "content": "What is 2 + 2?",
+    "options": ["3", "4", "5", "6"],
+    "awnser": "4",
+    "category": "Math"
+  },
+  {
+    "content": "Who wrote 'Hamlet'?",
+    "options": [
+      "Charles Dickens",
+      "William Shakespeare",
+      "J.K. Rowling",
+      "George Orwell"
+    ],
+    "awnser": "William Shakespeare",
+    "category": "Literature"
+  },
+  {
+    "content": "What is the chemical symbol for water?",
+    "options": ["O2", "H2O", "CO2", "NaCl"],
+    "awnser": "H2O",
+    "category": "Science"
+  },
+  {
+    "content": "Which planet is known as the Red Planet?",
+    "options": ["Earth", "Mars", "Jupiter", "Saturn"],
+    "awnser": "Mars",
+    "category": "Astronomy"
+  },
+  {
+    "content": "What year did World War II end?",
+    "options": ["1942", "1945", "1950", "1939"],
+    "awnser": "1945",
+    "category": "History"
+  },
+  {
+    "content": "Which language is used for web development?",
+    "options": ["Python", "C++", "HTML", "Java"],
+    "awnser": "HTML",
+    "category": "Technology"
+  },
+  {
+    "content": "What is the largest mammal?",
+    "options": ["Elephant", "Blue Whale", "Giraffe", "Tiger"],
+    "awnser": "Blue Whale",
+    "category": "Biology"
+  },
+  {
+    "content": "What is the currency of Japan?",
+    "options": ["Yuan", "Yen", "Won", "Dollar"],
+    "awnser": "Yen",
+    "category": "Economics"
+  },
+  {
+    "content": "Who painted the Mona Lisa?",
+    "options": [
+      "Leonardo da Vinci",
+      "Vincent van Gogh",
+      "Pablo Picasso",
+      "Claude Monet"
+    ],
+    "awnser": "Leonardo da Vinci",
+    "category": "Art"
+  },
+  {
+    "content": "What is the boiling point of water in Celsius?",
+    "options": ["90°C", "100°C", "120°C", "80°C"],
+    "awnser": "100°C",
+    "category": "Science"
+  },
+  {
+    "content": "Which country is home to the kangaroo?",
+    "options": ["India", "Brazil", "Australia", "South Africa"],
+    "awnser": "Australia",
+    "category": "Geography"
+  },
+  {
+    "content": "Who discovered penicillin?",
+    "options": [
+      "Marie Curie",
+      "Alexander Fleming",
+      "Isaac Newton",
+      "Albert Einstein"
+    ],
+    "awnser": "Alexander Fleming",
+    "category": "History"
+  },
+  {
+    "content": "What is the largest organ in the human body?",
+    "options": ["Liver", "Brain", "Skin", "Heart"],
+    "awnser": "Skin",
+    "category": "Biology"
+  },
+  {
+    "content": "Which gas do plants absorb from the atmosphere?",
+    "options": ["Oxygen", "Hydrogen", "Carbon Dioxide", "Nitrogen"],
+    "awnser": "Carbon Dioxide",
+    "category": "Science"
+  },
+  {
+    "content": "What is the square root of 64?",
+    "options": ["6", "7", "8", "9"],
+    "awnser": "8",
+    "category": "Math"
+  },
+  {
+    "content": "Who was the first man to walk on the moon?",
+    "options": ["Neil Armstrong", "Buzz Aldrin", "Yuri Gagarin", "John Glenn"],
+    "awnser": "Neil Armstrong",
+    "category": "History"
+  },
+  {
+    "content": "What is the longest river in the world?",
+    "options": ["Nile", "Amazon", "Yangtze", "Mississippi"],
+    "awnser": "Nile",
+    "category": "Geography"
+  },
+  {
+    "content": "What is the main ingredient in guacamole?",
+    "options": ["Tomato", "Avocado", "Cucumber", "Pepper"],
+    "awnser": "Avocado",
+    "category": "Food"
+  },
+  {
+    "content": "Which element is represented by the symbol 'Fe'?",
+    "options": ["Lead", "Iron", "Gold", "Fluorine"],
+    "awnser": "Iron",
+    "category": "Science"
+  },
+  {
+    "content": "Who is the author of 'Pride and Prejudice'?",
+    "options": [
+      "Jane Austen",
+      "Emily Brontë",
+      "Charles Dickens",
+      "George Eliot"
+    ],
+    "awnser": "Jane Austen",
+    "category": "Literature"
+  },
+  {
+    "content": "Which ocean is the largest?",
+    "options": ["Atlantic", "Pacific", "Indian", "Arctic"],
+    "awnser": "Pacific",
+    "category": "Geography"
+  },
+  {
+    "content": "What is the powerhouse of the cell?",
+    "options": ["Nucleus", "Mitochondria", "Ribosome", "Golgi Apparatus"],
+    "awnser": "Mitochondria",
+    "category": "Biology"
+  },
+  {
+    "content": "Which year did the Titanic sink?",
+    "options": ["1912", "1905", "1920", "1898"],
+    "awnser": "1912",
+    "category": "History"
+  },
+  {
+    "content": "What is the capital of Brazil?",
+    "options": ["Rio de Janeiro", "Brasília", "São Paulo", "Salvador"],
+    "awnser": "Brasília",
+    "category": "Geography"
+  },
+  {
+    "content": "Which country gifted the Statue of Liberty to the USA?",
+    "options": ["France", "Italy", "Germany", "Canada"],
+    "awnser": "France",
+    "category": "History"
+  },
+  {
+    "content": "What is the chemical symbol for gold?",
+    "options": ["Au", "Ag", "Pb", "Fe"],
+    "awnser": "Au",
+    "category": "Science"
+  },
+  {
+    "content": "Which planet is the hottest in the solar system?",
+    "options": ["Earth", "Mars", "Venus", "Mercury"],
+    "awnser": "Venus",
+    "category": "Astronomy"
+  },
+  {
+    "content": "Which country has won the most FIFA World Cups?",
+    "options": ["Germany", "Argentina", "Brazil", "Italy"],
+    "awnser": "Brazil",
+    "category": "Sports"
+  },
+  {
+    "content": "What is the tallest mountain in the world?",
+    "options": ["K2", "Mount Everest", "Mount Kilimanjaro", "Mount Fuji"],
+    "awnser": "Mount Everest",
+    "category": "Geography"
+  },
+  {
+    "content": "Which continent is the Sahara Desert located on?",
+    "options": ["Asia", "Africa", "Europe", "Australia"],
+    "awnser": "Africa",
+    "category": "Geography"
+  },
+  {
+    "content": "What is the most abundant gas in Earth's atmosphere?",
+    "options": ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"],
+    "awnser": "Nitrogen",
+    "category": "Science"
+  },
+  {
+    "content": "Who developed the theory of relativity?",
+    "options": [
+      "Isaac Newton",
+      "Albert Einstein",
+      "Galileo Galilei",
+      "Nikola Tesla"
+    ],
+    "awnser": "Albert Einstein",
+    "category": "Science"
+  },
+  {
+    "content": "Which country is known as the Land of the Rising Sun?",
+    "options": ["China", "South Korea", "Japan", "Thailand"],
+    "awnser": "Japan",
+    "category": "Geography"
+  },
+  {
+    "content": "What is the hardest natural substance on Earth?",
+    "options": ["Iron", "Diamond", "Graphite", "Quartz"],
+    "awnser": "Diamond",
+    "category": "Science"
+  },
+  {
+    "content": "Who was the first President of the United States?",
+    "options": [
+      "Thomas Jefferson",
+      "Abraham Lincoln",
+      "George Washington",
+      "John Adams"
+    ],
+    "awnser": "George Washington",
+    "category": "History"
+  },
+  {
+    "content": "What is the capital city of Canada?",
+    "options": ["Toronto", "Vancouver", "Ottawa", "Montreal"],
+    "awnser": "Ottawa",
+    "category": "Geography"
+  },
+  {
+    "content": "Which element has the atomic number 1?",
+    "options": ["Helium", "Oxygen", "Hydrogen", "Carbon"],
+    "awnser": "Hydrogen",
+    "category": "Science"
+  },
+  {
+    "content": "Who wrote the novel '1984'?",
+    "options": [
+      "George Orwell",
+      "Aldous Huxley",
+      "J.R.R. Tolkien",
+      "Ray Bradbury"
+    ],
+    "awnser": "George Orwell",
+    "category": "Literature"
+  },
+  {
+    "content": "Which country hosted the 2016 Summer Olympics?",
+    "options": ["Brazil", "China", "Russia", "United States"],
+    "awnser": "Brazil",
+    "category": "Sports"
+  },
+  {
+    "content": "What is the color of the sky on a clear day?",
+    "options": ["Green", "Red", "Blue", "Yellow"],
+    "awnser": "Blue",
+    "category": "General Knowledge"
+  },
+  {
+    "content": "How many legs does a spider have?",
+    "options": ["6", "8", "10", "12"],
+    "awnser": "8",
+    "category": "Biology"
+  },
+  {
+    "content": "What is the largest planet in our solar system?",
+    "options": ["Earth", "Mars", "Jupiter", "Saturn"],
+    "awnser": "Jupiter",
+    "category": "Astronomy"
+  },
+  {
+    "content": "How many continents are there on Earth?",
+    "options": ["5", "6", "7", "8"],
+    "awnser": "7",
+    "category": "Geography"
+  },
+  {
+    "content": "What animal is known as the King of the Jungle?",
+    "options": ["Elephant", "Lion", "Tiger", "Cheetah"],
+    "awnser": "Lion",
+    "category": "Biology"
+  },
+  {
+    "content": "Which month comes after May?",
+    "options": ["April", "June", "July", "August"],
+    "awnser": "June",
+    "category": "General Knowledge"
+  },
+  {
+    "content": "How many days are there in a leap year?",
+    "options": ["365", "366", "364", "367"],
+    "awnser": "366",
+    "category": "General Knowledge"
+  },
+  {
+    "content": "What is the name of the fairy in Peter Pan?",
+    "options": ["Tinker Bell", "Ariel", "Wendy", "Belle"],
+    "awnser": "Tinker Bell",
+    "category": "Literature"
+  },
+  {
+    "content": "Which part of the plant conducts photosynthesis?",
+    "options": ["Root", "Stem", "Leaf", "Flower"],
+    "awnser": "Leaf",
+    "category": "Science"
+  },
+  {
+    "content": "Which shape has 3 sides?",
+    "options": ["Square", "Triangle", "Circle", "Rectangle"],
+    "awnser": "Triangle",
+    "category": "Math"
+  },
+  {
+    "content": "How many colors are there in a rainbow?",
+    "options": ["5", "6", "7", "8"],
+    "awnser": "7",
+    "category": "General Knowledge"
+  },
+  {
+    "content": "What is the main color of a banana peel?",
+    "options": ["Green", "Yellow", "Red", "Orange"],
+    "awnser": "Yellow",
+    "category": "Food"
+  },
+  {
+    "content": "What do caterpillars turn into?",
+    "options": ["Bees", "Butterflies", "Ants", "Flies"],
+    "awnser": "Butterflies",
+    "category": "Biology"
+  },
+  {
+    "content": "Which country is famous for pizza?",
+    "options": ["Mexico", "India", "Italy", "Japan"],
+    "awnser": "Italy",
+    "category": "Food"
+  },
+  {
+    "content": "Which ocean is the smallest?",
+    "options": ["Atlantic", "Pacific", "Indian", "Arctic"],
+    "awnser": "Arctic",
+    "category": "Geography"
+  },
+  {
+    "content": "How many teeth does an adult human have?",
+    "options": ["28", "30", "32", "34"],
+    "awnser": "32",
+    "category": "Biology"
+  },
+  {
+    "content": "Which country is the Eiffel Tower located in?",
+    "options": ["Germany", "France", "Italy", "Spain"],
+    "awnser": "France",
+    "category": "Geography"
+  },
+  {
+    "content": "What type of food do pandas mainly eat?",
+    "options": ["Bamboo", "Grass", "Leaves", "Fruits"],
+    "awnser": "Bamboo",
+    "category": "Biology"
+  },
+  {
+    "content": "Which planet is closest to the sun?",
+    "options": ["Venus", "Earth", "Mars", "Mercury"],
+    "awnser": "Mercury",
+    "category": "Astronomy"
+  },
+  {
+    "content": "What is the national sport of Japan?",
+    "options": ["Sumo Wrestling", "Soccer", "Basketball", "Baseball"],
+    "awnser": "Sumo Wrestling",
+    "category": "Sports"
+  }
+]

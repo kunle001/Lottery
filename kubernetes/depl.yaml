@@ -1,0 +1,127 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quizme-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: quizme-api
+  template:
+    metadata:
+      labels:
+        component: quizme-api
+    spec:
+      containers:
+        - name: quizme-api
+          image: quizme.azurecr.io/quizme:v0.0.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          env:
+            - name: PORT
+              valueFrom:
+                secretKeyRef:
+                  name: quiz-secrets
+                  key: PORT
+            - name: FB_APP_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: quiz-secrets
+                  key: FB_APP_SECRET
+            - name: FB_APP_ID
+              valueFrom:
+                secretKeyRef:
+                  name: quiz-secrets
+                  key: FB_APP_ID
+            - name: NODE_ENV
+              valueFrom:
+                secretKeyRef:
+                  name: quiz-secrets
+                  key: NODE_ENV
+            - name: REDIRECT_URL
+              valueFrom:
+                secretKeyRef:
+                  name: quiz-secrets
+                  key: REDIRECT_URL
+            - name: MODE
+              valueFrom:
+                secretKeyRef:
+                  name: quiz-secrets
+                  key: MODE
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: quiz-secrets
+                  key: JWT_KEY
+            - name: DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: quiz-secrets
+                  key: DB_URL
+            - name: EXPIRES_IN
+              valueFrom:
+                secretKeyRef:
+                  name: quiz-secrets
+                  key: EXPIRES_IN
+            - name: HOST
+              valueFrom:
+                secretKeyRef:
+                  name: quiz-secrets
+                  key: HOST
+            - name: GMAIL_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: quiz-secrets
+                  key: GMAIL_PORT
+            - name: EMAIL_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: quiz-secrets
+                  key: EMAIL_USERNAME
+            - name: EMAIL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: quiz-secrets
+                  key: EMAIL_PASSWORD
+            - name: PAYSTACK_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: quiz-secrets
+                  key: PAYSTACK_KEY
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: quiz-secrets
+type: Opaque
+data:
+  PORT: MzAwMA==
+  FB_APP_SECRET: NjNjYzNiM2Q3OGMwODRjODgzMjQ2YTMyZmY1YjcxYTg=
+  FB_APP_ID: ODk0MjA4OTI0OTAwMTgw
+  NODE_ENV: ZGV2ZWxvcG1lbnQ=
+  REDIRECT_URL: NC4xNTcuOTYuMTI6NTAwNTE=
+  MODE: cHJvZHVjdGlvbg==
+  JWT_KEY: IjUlUkZUM3EyMzQxNyI=
+  DB_URL: bW9uZ29kYitzcnY6Ly93b2xlOlJLdm56dk0xamJGNFN2cFFAcXVpem1lLnlneGVuM3EubW9uZ29kYi5uZXQv
+  EXPIRES_IN: MWQ=
+  HOST: c210cC5tYWlsZ3VuLm9yZw==
+  GMAIL_PORT: NDY1
+  EMAIL_USERNAME: cG9zdG1hc3RlckBtYWlsLnF1aXptZWFwLmNvbQ==
+  EMAIL_PASSWORD: MTdhODIxMzZkZDU5NGIwZDY0MDk2MGVkMGViMTI1ODItZWQ1NGQ2NWMtZWNmYmFjNjE=
+  PAYSTACK_KEY: c2tfbGl2ZV8yZTA2MjEyMGI1ZmY4YjliYWEwNzA1YzA3NTRhNGVjOWNhY2NjNWVi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name:  quizme-api
+spec:
+  type: LoadBalancer
+  selector:
+    component: quizme-api
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000

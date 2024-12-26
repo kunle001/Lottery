@@ -1,0 +1,6 @@
+.env
+node_modules
+kubernetes
+Dockerfile
+.dockerignore
+.DS_Store

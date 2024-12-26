@@ -1,0 +1,303 @@
+[
+    {
+      "content": "Who wrote '1984'?",
+      "options": ["George Orwell", "F. Scott Fitzgerald", "Ernest Hemingway", "J.R.R. Tolkien"],
+      "awnser": "George Orwell",
+      "isconstant": false
+    },
+    {
+      "content": "What is the largest ocean on Earth?",
+      "options": ["Pacific Ocean", "Atlantic Ocean", "Indian Ocean", "Arctic Ocean"],
+      "awnser": "Pacific Ocean",
+      "isconstant": false
+    },
+    {
+      "content": "Who painted 'Starry Night'?",
+      "options": ["Vincent van Gogh", "Pablo Picasso", "Claude Monet", "Leonardo da Vinci"],
+      "awnser": "Vincent van Gogh",
+      "isconstant": false
+    },
+    {
+      "content": "What is the main ingredient in guacamole?",
+      "options": ["Avocado", "Tomato", "Onion", "Lime"],
+      "awnser": "Avocado",
+      "isconstant": false
+    },
+    {
+      "content": "Who was the first woman to win a Nobel Prize?",
+      "options": ["Marie Curie", "Rosalind Franklin", "Ada Lovelace", "Jane Goodall"],
+      "awnser": "Marie Curie",
+      "isconstant": false
+    },
+    {
+      "content": "What is the largest organ in the human body?",
+      "options": ["Skin", "Liver", "Heart", "Brain"],
+      "awnser": "Skin",
+      "isconstant": false
+    },
+    {
+      "content": "Which gas is most abundant in Earth's atmosphere?",
+      "options": ["Nitrogen", "Oxygen", "Carbon Dioxide", "Argon"],
+      "awnser": "Nitrogen",
+      "isconstant": false
+    },
+    {
+      "content": "Who is the author of 'The Great Gatsby'?",
+      "options": ["F. Scott Fitzgerald", "Ernest Hemingway", "William Faulkner", "John Steinbeck"],
+      "awnser": "F. Scott Fitzgerald",
+      "isconstant": false
+    },
+    {
+      "content": "What is the chemical symbol for gold?",
+      "options": ["Au", "Ag", "Fe", "Hg"],
+      "awnser": "Au",
+      "isconstant": false
+    },
+    {
+      "content": "Which planet is known as the 'Morning Star'?",
+      "options": ["Venus", "Mercury", "Mars", "Saturn"],
+      "awnser": "Venus",
+      "isconstant": false
+    },
+    {
+      "content": "Who composed 'The Four Seasons'?",
+      "options": ["Antonio Vivaldi", "Wolfgang Amadeus Mozart", "Ludwig van Beethoven", "Johann Sebastian Bach"],
+      "awnser": "Antonio Vivaldi",
+      "isconstant": false
+    },
+    {
+      "content": "What is the tallest mountain in the world?",
+      "options": ["Mount Everest", "K2", "Kangchenjunga", "Lhotse"],
+      "awnser": "Mount Everest",
+      "isconstant": false
+    },
+    {
+      "content": "Who founded Microsoft?",
+      "options": ["Bill Gates", "Steve Jobs", "Mark Zuckerberg", "Larry Page"],
+      "awnser": "Bill Gates",
+      "isconstant": false
+    },
+    {
+      "content": "What is the currency of Brazil?",
+      "options": ["Real", "Peso", "Dinar", "Rupee"],
+      "awnser": "Real",
+      "isconstant": false
+    },
+    {
+      "content": "Who discovered gravity?",
+      "options": ["Isaac Newton", "Galileo Galilei", "Albert Einstein", "Nikola Tesla"],
+      "awnser": "Isaac Newton",
+      "isconstant": false
+    },
+    {
+      "content": "What is the chemical symbol for sodium?",
+      "options": ["Na", "Ca", "K", "Fe"],
+      "awnser": "Na",
+      "isconstant": false
+    },
+    {
+      "content": "Which bird is known for its ability to mimic human speech?",
+      "options": ["Parrot", "Crow", "Eagle", "Owl"],
+      "awnser": "Parrot",
+      "isconstant": false
+    },
+    {
+      "content": "Who painted 'The Last Supper'?",
+      "options": ["Leonardo da Vinci", "Michelangelo", "Raphael", "Donatello"],
+      "awnser": "Leonardo da Vinci",
+      "isconstant": false
+    },
+    {
+      "content": "What is the smallest bone in the human body?",
+      "options": ["Stapes", "Femur", "Tibia", "Fibula"],
+      "awnser": "Stapes",
+      "isconstant": false
+    },
+    {
+      "content": "What is the boiling point of water in Celsius?",
+      "options": ["100°C", "0°C", "50°C", "200°C"],
+      "awnser": "100°C",
+      "isconstant": false
+    },
+    {
+      "content": "Who wrote 'Pride and Prejudice'?",
+      "options": ["Jane Austen", "Charlotte Brontë", "Emily Brontë", "Agatha Christie"],
+      "awnser": "Jane Austen",
+      "isconstant": false
+    },
+    {
+      "content": "What is the chemical symbol for silver?",
+      "options": ["Ag", "Au", "Fe", "Hg"],
+      "awnser": "Ag",
+      "isconstant": false
+    },
+    {
+      "content": "Which gas do plants use for photosynthesis?",
+      "options": ["Carbon Dioxide", "Oxygen", "Nitrogen", "Hydrogen"],
+      "awnser": "Carbon Dioxide",
+      "isconstant": false
+    },
+    {
+      "content": "Who was the first man to step on the moon?",
+      "options": ["Neil Armstrong", "Buzz Aldrin", "Yuri Gagarin", "Alan Shepard"],
+      "awnser": "Neil Armstrong",
+      "isconstant": false
+    },
+    {
+      "content": "What is the currency of Japan?",
+      "options": ["Yen", "Won", "Yuan", "Rupee"],
+      "awnser": "Yen",
+      "isconstant": false
+    },
+    {
+      "content": "Who painted 'The Scream'?",
+      "options": ["Edvard Munch", "Pablo Picasso", "Vincent van Gogh", "Claude Monet"],
+      "awnser": "Edvard Munch",
+      "isconstant": false
+    },
+    {
+      "content": "What is the chemical symbol for carbon?",
+      "options": ["C", "Ca", "Co", "Cu"],
+      "awnser": "C",
+      "isconstant": false
+    },
+    {
+      "content": "Which planet is known as the 'Red Planet'?",
+      "options": ["Mars", "Jupiter", "Venus", "Mercury"],
+      "awnser": "Mars",
+      "isconstant": false
+    },
+    {
+      "content": "Who wrote 'The Catcher in the Rye'?",
+      "options": ["J.D. Salinger", "Ernest Hemingway", "F. Scott Fitzgerald", "Mark Twain"],
+      "awnser": "J.D. Salinger",
+      "isconstant": false
+    },
+    {
+      "content": "What is the largest desert in the world?",
+      "options": ["Antarctica", "Sahara", "Gobi", "Arabian"],
+      "awnser": "Antarctica",
+      "isconstant": false
+    },
+    {
+      "content": "Who invented the telephone?",
+      "options": ["Alexander Graham Bell", "Thomas Edison", "Nikola Tesla", "Guglielmo Marconi"],
+      "awnser": "Alexander Graham Bell",
+      "isconstant": false
+    },
+    {
+      "content": "What is the chemical symbol for iron?",
+      "options": ["Fe", "Au", "Ag", "Cu"],
+      "awnser": "Fe",
+      "isconstant": false
+    },
+    {
+      "content": "Which planet is known as the 'Blue Planet'?",
+      "options": ["Earth", "Neptune", "Uranus", "Saturn"],
+      "awnser": "Earth",
+      "isconstant": false
+    },
+    {
+      "content": "Who painted 'The Starry Night'?",
+      "options": ["Vincent van Gogh", "Pablo Picasso", "Claude Monet", "Leonardo da Vinci"],
+      "awnser": "Vincent van Gogh",
+      "isconstant": false
+    },
+    {
+      "content": "What is the chemical symbol for helium?",
+      "options": ["He", "H", "Ha", "Hy"],
+      "awnser": "He",
+      "isconstant": false
+    },
+    {
+      "content": "Who was the first President of the United States?",
+      "options": ["George Washington", "Thomas Jefferson", "John Adams", "Abraham Lincoln"],
+      "awnser": "George Washington",
+      "isconstant": false
+    },
+    {
+      "content": "What is the smallest planet in our solar system?",
+      "options": ["Mercury", "Venus", "Mars", "Pluto"],
+      "awnser": "Mercury",
+      "isconstant": false
+    },
+    {
+      "content": "Who wrote 'The Odyssey'?",
+      "options": ["Homer", "Virgil", "Sophocles", "Plato"],
+      "awnser": "Homer",
+      "isconstant": false
+    },
+    {
+      "content": "What is the chemical symbol for potassium?",
+      "options": ["K", "P", "Pt", "Kr"],
+      "awnser": "K",
+      "isconstant": false
+    },
+    {
+      "content": "Who discovered electricity?",
+      "options": ["Benjamin Franklin", "Thomas Edison", "Nikola Tesla", "Alexander Graham Bell"],
+      "awnser": "Benjamin Franklin",
+      "isconstant": false
+    },
+    {
+      "content": "What is the currency of India?",
+      "options": ["Rupee", "Yen", "Yuan", "Dollar"],
+      "awnser": "Rupee",
+      "isconstant": false
+    },
+    {
+      "content": "Who painted 'The Persistence of Memory'?",
+      "options": ["Salvador Dalí", "Pablo Picasso", "Vincent van Gogh", "Claude Monet"],
+      "awnser": "Salvador Dalí",
+      "isconstant": false
+    },
+    {
+      "content": "What is the chemical symbol for lead?",
+      "options": ["Pb", "L", "Le", "P"],
+      "awnser": "Pb",
+      "isconstant": false
+    },
+    {
+      "content": "Who was the first woman to fly solo across the Atlantic Ocean?",
+      "options": ["Amelia Earhart", "Bessie Coleman", "Jacqueline Cochran", "Harriet Quimby"],
+      "awnser": "Amelia Earhart",
+      "isconstant": false
+    },
+    {
+      "content": "What is the largest land animal?",
+      "options": ["African Elephant", "Giraffe", "Hippopotamus", "White Rhinoceros"],
+      "awnser": "African Elephant",
+      "isconstant": false
+    },
+    {
+      "content": "Who wrote 'War and Peace'?",
+      "options": ["Leo Tolstoy", "Fyodor Dostoevsky", "Anton Chekhov", "Vladimir Nabokov"],
+      "awnser": "Leo Tolstoy",
+      "isconstant": false
+    },
+    {
+      "content": "What is the chemical symbol for silver?",
+      "options": ["Ag", "Au", "Si", "Fe"],
+      "awnser": "Ag",
+      "isconstant": false
+    },
+    {
+      "content": "Which planet is known as the 'Giant Planet'?",
+      "options": ["Jupiter", "Saturn", "Uranus", "Neptune"],
+      "awnser": "Jupiter",
+      "isconstant": false
+    },
+    {
+      "content": "Who composed 'Symphony No. 9'?",
+      "options": ["Ludwig van Beethoven", "Wolfgang Amadeus Mozart", "Johann Sebastian Bach", "Franz Schubert"],
+      "awnser": "Ludwig van Beethoven",
+      "isconstant": false
+    },
+    {
+      "content": "What is the chemical symbol for oxygen?",
+      "options": ["O", "Ox", "Oy", "Og"],
+      "awnser": "O",
+      "isconstant": false
+    }
+  ]
+  
