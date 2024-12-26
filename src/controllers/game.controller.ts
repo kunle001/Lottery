@@ -134,7 +134,7 @@ export class GameController {
       game_score,
       score,
       time_taken:
-        // req.body.end_time ||
+        req.body.end_time ||
         Math.min(timeDifferenceInSeconds * 1000, Number(GAME_MAX_TIME)),
     });
 
