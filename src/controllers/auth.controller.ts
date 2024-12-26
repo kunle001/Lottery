@@ -66,6 +66,7 @@ export class AuthController {
       phoneNumber,
       country,
       deviceId,
+      referalCode,
     } = req.body;
 
     const user = await this.userService.signUp({
@@ -78,6 +79,7 @@ export class AuthController {
       phoneNumber,
       country,
       deviceId,
+      referalCode,
     });
 
     sendSuccess(res, 201, {
