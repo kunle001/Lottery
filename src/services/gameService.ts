@@ -49,7 +49,7 @@ export class GameService {
 
     const gameQuestion = await selectRandomData("question");
     const adverts = await selectRandomData("advert");
-    const constantQuestions = await this.gameRepo.findMany({
+    const constantQuestions = await this.questionRepo.findMany({
       isconstant: true,
     });
 
@@ -65,6 +65,8 @@ export class GameService {
       stage * 2 + 2
     );
 
+    const questions = gameQuestion.concat(constantQuestionsSlice);
+
     // increment no of plays
     await this.gameRepo.update(existingPlayer.id, {
       no_of_plays: existingPlayer.no_of_plays + 1,
@@ -72,7 +74,7 @@ export class GameService {
     });
 
     return {
-      questions: gameQuestion as QuestionDoc[],
+      questions: questions as QuestionDoc[],
       playerId: existingPlayer.id,
       games_played: existingPlayer.no_of_plays,
       player: existingPlayer,

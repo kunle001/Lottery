@@ -1,3 +1,4 @@
+import { ADVERTS_PERGAME, QUESTIONS_PERGAME } from "../../config";
 import { Advert, AdvertDoc } from "../../models/advert";
 import { Question, QuestionAttr, QuestionDoc } from "../../models/questions";
 import AppError from "./appError";
@@ -27,7 +28,11 @@ export async function selectRandomData(
       const questions = await Question.find({
         isconstant: false,
       });
-      const [start, end] = getRandomRange(0, questions.length, 8);
+      const [start, end] = getRandomRange(
+        0,
+        questions.length,
+        Number(QUESTIONS_PERGAME)
+      );
 
       for (let i = start; i <= end; i++) {
         // Corrected loop to iterate from start to end
@@ -38,7 +43,11 @@ export async function selectRandomData(
     case "advert":
       const selectedAdvert: AdvertDoc[] = [];
       const advert = await Advert.find();
-      const [startAdv, endAdv] = getRandomRange(0, advert.length, numberOfData);
+      const [startAdv, endAdv] = getRandomRange(
+        0,
+        advert.length,
+        numberOfData || Number(ADVERTS_PERGAME)
+      );
 
       for (let i = startAdv; i <= endAdv; i++) {
         // Corrected loop to iterate from start to end

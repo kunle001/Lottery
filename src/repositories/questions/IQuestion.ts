@@ -13,8 +13,7 @@ export interface IQuestionRepo {
   ): Promise<QuestionDoc | null>;
 
   findMany(
-    field: string,
-    value: string,
+    query: Record<string, any>,
     populateFields?: IpopulateFields[]
   ): Promise<QuestionDoc[] | null>;
 

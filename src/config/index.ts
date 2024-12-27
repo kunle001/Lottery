@@ -6,3 +6,5 @@ export const APP_VERSION = process.env.APP_VERSION;
 export const API_BASE_URL = process.env.API_BASE_URL;
 export const APP_NAME = process.env.APP_NAME || "Quizme";
 export const GAME_MAX_TIME = process.env.GAME_MAX_TIME || 60;
+export const QUESTIONS_PERGAME = process.env.QUESTIONS_PERGAME || 8;
+export const ADVERTS_PERGAME = process.env.ADVERTS_PERGAME || 1;

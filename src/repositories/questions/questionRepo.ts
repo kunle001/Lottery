@@ -56,25 +56,22 @@ export class QuestionRepo implements IQuestionRepo {
   }
 
   async findMany(
-    field: string,
-    value: string,
+    query: Record<string, any>,
     populateFields?: IpopulateFields[]
   ): Promise<QuestionDoc[] | null> {
     // Implementation to fetch Question by ID from the database
 
-    let query = this.model.find({
-      [field]: value,
-    });
+    let query_ = this.model.find(query);
 
     if (populateFields && populateFields.length > 0) {
       populateFields.forEach((pop) => {
         const populateOptions = pop.fieldSubFields
           ? `${pop.fieldName} ${pop.fieldSubFields.join(" ")}`
           : pop.fieldName;
-        query.populate(populateOptions);
+        query_.populate(populateOptions);
       });
     }
-    const Question = await query;
+    const Question = await query_;
 
     return Question!;
   }
