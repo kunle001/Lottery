@@ -8,3 +8,4 @@ export const APP_NAME = process.env.APP_NAME || "Quizme";
 export const GAME_MAX_TIME = process.env.GAME_MAX_TIME || 60;
 export const QUESTIONS_PERGAME = process.env.QUESTIONS_PERGAME || 8;
 export const ADVERTS_PERGAME = process.env.ADVERTS_PERGAME || 1;
+export const NODE_ENV = process.env.NODE_ENV || "development";
