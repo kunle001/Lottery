@@ -6,6 +6,9 @@ import { Player } from "../models/players";
 import AppError from "../shared/utils/appError";
 import { selectRandomData } from "../shared/utils/randomPicker";
 import { GAME_MAX_TIME, INCREMENTED_CHANCES } from "../config";
+import { GameService } from "../services/gameService";
+import { PlayerRepo } from "../repositories/game-players/playerRepo";
+import { QuestionRepo } from "../repositories/questions/questionRepo";
 
 type AsyncHandler = (
   req: Request,
@@ -24,61 +27,72 @@ interface AnswerStats {
 }
 
 export class GameController {
+  private gameService: GameService;
+  constructor() {
+    const gameRepo_ = new PlayerRepo(Player);
+    const questionRepo_ = new QuestionRepo(Question);
+    this.gameService = new GameService(gameRepo_, questionRepo_);
+  }
   public startGame = catchAsync(async (req: Request, res: Response) => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    // const today = new Date();
+    // today.setHours(0, 0, 0, 0);
 
-    const existingPlayer = await Player.findOneAndUpdate(
-      {
-        user: req.currentUser?.id,
-        started_at: { $gte: today, $lt: new Date(today.getTime() + 86400000) },
-      },
-      {
-        $setOnInsert: {
-          // This sets fields only when creating a new document
-          user: req.currentUser!.id,
-          started_at: new Date(),
-          location: {
-            coordinates: [Number(req.query.lat), Number(req.query.long)],
-          },
-        },
-      },
-      { new: true, upsert: true }
-    );
+    // const existingPlayer = await Player.findOneAndUpdate(
+    //   {
+    //     user: req.currentUser?.id,
+    //     started_at: { $gte: today, $lt: new Date(today.getTime() + 86400000) },
+    //   },
+    //   {
+    //     $setOnInsert: {
+    //       // This sets fields only when creating a new document
+    //       user: req.currentUser!.id,
+    //       started_at: new Date(),
+    //       location: {
+    //         coordinates: [Number(req.query.lat), Number(req.query.long)],
+    //       },
+    //     },
+    //   },
+    //   { new: true, upsert: true }
+    // );
 
-    const time_left =
-      today.getTime() + 86400000 - (existingPlayer.started_at?.getTime() || 0);
+    // const time_left =
+    //   today.getTime() + 86400000 - (existingPlayer.started_at?.getTime() || 0);
 
-    const time_left_hours = time_left / (1000 * 60 * 60);
+    // const time_left_hours = time_left / (1000 * 60 * 60);
 
-    if (existingPlayer.chances <= 0) {
-      throw new AppError(
-        `try again in ${Math.floor(time_left_hours)} ${
-          time_left_hours < 2 ? "Hour" : "Hours"
-        },  `,
-        400
-      );
-    }
+    // if (existingPlayer.chances <= 0) {
+    //   throw new AppError(
+    //     `try again in ${Math.floor(time_left_hours)} ${
+    //       time_left_hours < 2 ? "Hour" : "Hours"
+    //     },  `,
+    //     400
+    //   );
+    // }
 
-    const gameQuestion = await selectRandomData("question");
-    const adverts = await selectRandomData("advert");
-    const constantQuestions = await Question.find({ isconstant: true });
+    // const gameQuestion = await selectRandomData("question");
+    // const adverts = await selectRandomData("advert");
+    // const constantQuestions = await Question.find({ isconstant: true });
 
-    // takes the minimum value between player's no of plays and 5
-    const stage = existingPlayer ? Math.min(existingPlayer.no_of_plays, 4) : 0;
+    // // takes the minimum value between player's no of plays and 5
+    // const stage = existingPlayer ? Math.min(existingPlayer.no_of_plays, 4) : 0;
 
-    const constantQuestionsSlice = constantQuestions.slice(
-      stage * 2,
-      stage * 2 + 2
-    );
-    const questions = gameQuestion.concat(constantQuestionsSlice);
-    // increment no of plays
-    existingPlayer.set({
-      no_of_plays: existingPlayer.no_of_plays + 1,
-      chances: existingPlayer.chances - 1,
-    });
+    // const constantQuestionsSlice = constantQuestions.slice(
+    //   stage * 2,
+    //   stage * 2 + 2
+    // );
+    // const questions = gameQuestion.concat(constantQuestionsSlice);
+    // // increment no of plays
+    // existingPlayer.set({
+    //   no_of_plays: existingPlayer.no_of_plays + 1,
+    //   chances: existingPlayer.chances - 1,
+    // });
 
-    await existingPlayer.save();
+    // await existingPlayer.save();
+    const { questions, playerId, games_played, adverts, player } =
+      await this.gameService.startGame(req.currentUser!.id, {
+        latitude: Number(req.query.lat),
+        longitude: Number(req.query.long),
+      });
 
     sendSuccess(
       res,
@@ -86,8 +100,8 @@ export class GameController {
       {
         questions,
         adverts,
-        playerId: existingPlayer.id,
-        games_played: existingPlayer.no_of_plays,
+        playerId: player.id,
+        games_played: player.no_of_plays,
       },
       "Game started"
     );

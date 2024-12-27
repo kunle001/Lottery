@@ -1,7 +1,7 @@
 import { PlayerAttr, PlayerDoc, PlayerModel } from "../../models/players";
 import AppError from "../../shared/utils/appError";
 import { IpopulateFields } from "../user/IUser";
-import { IPlayerRepo } from "./IPlayer";
+import { ILocation, IPlayerRepo, IUpdatePlayer } from "./IPlayer";
 
 export class PlayerRepo implements IPlayerRepo {
   private model: PlayerModel;
@@ -52,25 +52,22 @@ export class PlayerRepo implements IPlayerRepo {
   }
 
   async findMany(
-    field: string,
-    value: string,
+    query: Record<string, any>,
     populateFields?: IpopulateFields[]
   ): Promise<PlayerDoc[] | null> {
     // Implementation to fetch Player by ID from the database
 
-    let query = this.model.find({
-      [field]: value,
-    });
+    let query_ = this.model.find(query);
 
     if (populateFields && populateFields.length > 0) {
       populateFields.forEach((pop) => {
         const populateOptions = pop.fieldSubFields
           ? `${pop.fieldName} ${pop.fieldSubFields.join(" ")}`
           : pop.fieldName;
-        query.populate(populateOptions);
+        query_.populate(populateOptions);
       });
     }
-    const Player = await query;
+    const Player = await query_;
 
     return Player!;
   }
@@ -91,7 +88,7 @@ export class PlayerRepo implements IPlayerRepo {
     }
   }
 
-  async update(id: string, Player: PlayerAttr): Promise<PlayerDoc | null> {
+  async update(id: string, Player: IUpdatePlayer): Promise<PlayerDoc | null> {
     try {
       const Player_ = await this.model.findByIdAndUpdate(id, Player);
 
@@ -112,5 +109,30 @@ export class PlayerRepo implements IPlayerRepo {
     } catch (e: any) {
       throw new AppError(e, 500);
     }
+  }
+
+  async findOrUpdateExistinngPlayer(
+    userId: string,
+    date_: Date,
+    location: ILocation
+  ): Promise<PlayerDoc> {
+    const existingPlayer = await this.model.findOneAndUpdate(
+      {
+        user: userId,
+        started_at: { $gte: date_, $lt: new Date(date_.getTime() + 86400000) },
+      },
+      {
+        $setOnInsert: {
+          // This sets fields only when creating a new document
+          user: userId,
+          started_at: new Date(),
+          location: {
+            coordinates: [location.latitude, location.longitude],
+          },
+        },
+      },
+      { new: true, upsert: true }
+    );
+    return existingPlayer;
   }
 }

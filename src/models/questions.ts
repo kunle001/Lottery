@@ -20,7 +20,7 @@ export interface QuestionDoc extends mongoose.Document {
   category?: string;
 }
 
-interface QuestionModel extends mongoose.Model<QuestionDoc> {
+export interface QuestionModel extends mongoose.Model<QuestionDoc> {
   build(attr: QuestionAttr): QuestionDoc;
 }
 
