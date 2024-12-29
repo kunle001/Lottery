@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import AppError from "../shared/utils/appError";
 import Joi, { object } from "joi";
-import { NODE_ENV } from "../config";
 
 // FUNCTION FOR HANDLING TOKEN AND MONGOOSE ERRORS
 const handleDuplicateErrorDB = (error: any) => {
@@ -73,12 +72,12 @@ export const errorController = (
   err.statusCode = err.statusCode || 500;
   err.status = err.status || "error";
 
-  if (NODE_ENV === "development") {
+  if (process.env.NODE_ENV === "development") {
     sendErrorDev(err, res);
-  } else if (NODE_ENV === "production") {
+  } else if (process.env.NODE_ENV === "production") {
     let error: AppError;
 
-    if (err) {
+    if (err.code === 11000) {
       error = handleDuplicateErrorDB(err);
     } else if (err.name === "CastError") {
       error = handleCastErrorDB(err);
