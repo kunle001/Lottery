@@ -22,7 +22,7 @@ const handleValidationError = (error: any) => {
 
 const handleJWTError = (error: any) => {
   const message = "Please Log in";
-  return new AppError(message, 400);
+  return new AppError(message, 401);
 };
 
 const handleTokenExpired = (error: any) => {
@@ -93,7 +93,7 @@ export const errorController = (
       error = new AppError(err.message, err.statusCode);
     } else {
       console.log(err);
-      error = new AppError("something went wrong", 400);
+      error = new AppError("something went wrong", 500);
     }
     sendProdErr(error, res);
   }
