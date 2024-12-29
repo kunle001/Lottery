@@ -2,7 +2,6 @@ import "express-async-errors";
 import { ConnectOptions } from "mongoose";
 import mongoose from "mongoose";
 import { app } from "./src/app";
-import dotenv from "dotenv";
 import cloudinary from "cloudinary";
 import {
   createQuestions,
@@ -10,18 +9,25 @@ import {
 } from "./src/shared/utils/randomPicker";
 import { Paystack } from "./src/shared/utils/thirdParty/paystack";
 import { startJob } from "./src/shared/utils/cron";
+import {
+  CLOUDINARY_APIKEY,
+  CLOUDINARY_APISECRET,
+  CLOUDINARY_NAME,
+  DB_URL,
+  PORT,
+} from "./src/config";
+import { connectDb } from "./src/config/connectDB";
 
-dotenv.config({ path: "./.env" });
 // configurer cloudinary
 cloudinary.v2.config({
-  cloud_name: process.env.CLOUDINARY_NAME,
-  api_key: process.env.CLOUDINARY_APIKEY,
-  api_secret: process.env.CLOUDINARY_APISECRET,
+  cloud_name: CLOUDINARY_NAME,
+  api_key: CLOUDINARY_APIKEY,
+  api_secret: CLOUDINARY_APISECRET,
   secure: true,
 });
 
-const paystack = new Paystack();
-const PORT = process.env.PORT || 3000;
+// const paystack = new Paystack();
+// const PORT = PORT || 3000;
 
 // paystack
 //   .createTransferRecipient({
@@ -52,20 +58,12 @@ const PORT = process.env.PORT || 3000;
 // console.log("Random range:", start_num, "-", end);
 
 const start = async () => {
-  try {
-    await mongoose.connect(process.env.DB_URL!, {
-      // useNewUrlParser: true,
-      // useUnifiedTopology: true,
-    } as ConnectOptions);
-
-    console.log("DB conected");
-  } catch (err) {
-    console.log(err);
-  }
   app.listen(PORT, () => {
     startJob();
     console.log(`Listening on port ${PORT}`);
   });
+
+  connectDb();
 };
 
 // createQuestions("questions.json");

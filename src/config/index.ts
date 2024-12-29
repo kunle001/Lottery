@@ -1,3 +1,7 @@
+import dotenv from "dotenv";
+
+dotenv.config({ path: "./.env" });
+
 export const INCREMENTED_CHANCES = Number(process.env.INCREMENTED_CHANCES) || 5;
 export const MAXIMUM_CHANCES = Number(process.env.MAXIMUM_CHANCES) || 5;
 export const JWT_KEY = process.env.JWT_KEY || "test_key112";
@@ -9,3 +13,8 @@ export const GAME_MAX_TIME = process.env.GAME_MAX_TIME || 60;
 export const QUESTIONS_PERGAME = process.env.QUESTIONS_PERGAME || 8;
 export const ADVERTS_PERGAME = process.env.ADVERTS_PERGAME || 1;
 export const NODE_ENV = process.env.NODE_ENV || "development";
+export const PORT = process.env.PORT || "3000";
+export const CLOUDINARY_NAME = process.env.CLOUDINARY_NAME;
+export const CLOUDINARY_APIKEY = process.env.CLOUDINARY_APIKEY;
+export const CLOUDINARY_APISECRET = process.env.CLOUDINARY_APISECRET;
+export const DB_URL = process.env.DB_URL;
