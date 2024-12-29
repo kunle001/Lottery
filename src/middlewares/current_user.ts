@@ -28,7 +28,7 @@ export const currentUser = catchAsync(
 export const RestrictAccessto = (roles: string[]) =>
   catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     if (!roles.includes(req.currentUser!.role)) {
-      throw new AppError("this user cannot access this", 403);
+      throw new AppError("restricted access", 403);
     }
 
     next();
@@ -37,7 +37,7 @@ export const RestrictAccessto = (roles: string[]) =>
 export const requireAuth = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     if (!req.currentUser) {
-      throw new AppError("Please Login", 403);
+      throw new AppError("user is required to login", 403);
     }
     next();
   }

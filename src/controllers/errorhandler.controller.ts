@@ -96,7 +96,6 @@ export const errorController = (
       console.log(err);
       error = new AppError("something went wrong", 400);
     }
-
     sendProdErr(error, res);
   }
 };
