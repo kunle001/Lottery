@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import bodyParser from "body-parser";
 import { errorController } from "./controllers/errorhandler.controller";
 
@@ -43,7 +43,7 @@ app.use("/api/v1/transaction", TransactionRouter);
 app.use("/api/v1/views", ViewRouter);
 app.use("/api/v1/notification", NotificationRouter);
 
-app.get("/app-version", (req, res) => {
+app.get("/app-version", (req: Request, res: Response) => {
   sendSuccess(res, 200, APP_VERSION, APP_VERSION);
 });
 
