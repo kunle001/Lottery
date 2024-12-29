@@ -14,6 +14,7 @@ import {
   CLOUDINARY_APISECRET,
   CLOUDINARY_NAME,
   DB_URL,
+  NODE_ENV,
   PORT,
 } from "./src/config";
 import { connectDb } from "./src/config/connectDB";
@@ -60,7 +61,7 @@ cloudinary.v2.config({
 const start = async () => {
   app.listen(PORT, () => {
     startJob();
-    console.log(`Listening on port ${PORT}`);
+    console.log(`Listening on port ${PORT} on ${NODE_ENV} environment`);
   });
 
   connectDb();
