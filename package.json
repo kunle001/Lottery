@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "nodemon server.ts"
   },
   "author": "Adekunle Olanipekun",
   "license": "ISC",

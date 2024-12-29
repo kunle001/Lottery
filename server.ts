@@ -61,7 +61,10 @@ cloudinary.v2.config({
 const start = async () => {
   app.listen(PORT, () => {
     startJob();
-    console.log(`Listening on port ${PORT} on ${NODE_ENV} environment`);
+    console.log(`Listening on port ${PORT}`);
+    console.log(
+      `============================>>>>>>>>>>>>>>>${NODE_ENV.toUpperCase()} environment`
+    );
   });
 
   connectDb();
