@@ -21,7 +21,10 @@ export const startJob = () => {
       const today_winners = await Player.find({
         started_at: { $gte: today, $lt: new Date(today.getTime() + 86400000) },
       });
-
+      if (today_winners.length == 0) {
+        console.log("====================No Winners Today====================");
+        return;
+      }
       for (let i = 0; i < 10; i++) {
         const winner = today_winners[i];
 

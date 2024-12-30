@@ -18,6 +18,7 @@ export const CLOUDINARY_NAME = process.env.CLOUDINARY_NAME;
 export const CLOUDINARY_APIKEY = process.env.CLOUDINARY_APIKEY;
 export const CLOUDINARY_APISECRET = process.env.CLOUDINARY_APISECRET;
 export const DB_URL = process.env.DB_URL;
+export const PROD_DB_URL = process.env.PROD_DB_URL!;
 
 const requiredEnvVariables = [
   "CLOUDINARY_NAME",
