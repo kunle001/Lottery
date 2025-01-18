@@ -15,6 +15,11 @@ interface Ilogin {
   password: string;
 }
 
+interface IVerifyToken{
+  tokenVerfied: boolean,
+  token: string
+}
+
 interface IloginResponse {
   token: string;
   user_data: UserDoc;
@@ -265,7 +270,7 @@ export class AuthService {
     return twofadetails.url!;
   }
 
-  async VerifyTwofaToken(userId: string, token: string): Promise<boolean> {
+  async VerifyTwofaToken(userId: string, token: string): Promise<IVerifyToken> {
     const user = await this.userRepository.findById(userId);
     if (!user) {
       throw new AppError("user not found", 500);
@@ -278,7 +283,17 @@ export class AuthService {
     if (!tokenCorrect) {
       throw new AppError("incorrect token", 400);
     }
-    return tokenCorrect;
+
+    const user_data = {
+      role: user.role,
+      id: user.id,
+      email: user.email,
+      image: user.image,
+      tokenVerified: true
+    };
+
+    const token_ = JWT.sign(user_data);
+    return {tokenVerfied:tokenCorrect, token: token_};
   }
 
   async getToken(userId: string): Promise<string> {

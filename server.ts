@@ -74,4 +74,12 @@ const start = async () => {
 // sendEmail("adekunle.olanipekun.ko@gmail.com");
 // sendMailController.sendWelcome("adekunle.olanipekun.ko@gmail.com");
 
+// const fetchQuestions = async () => {
+//   const data = await fetch("https://the-trivia-api.com/v2/questions");
+
+//   console.log(data "===============+>>>>>>>>>");
+// };
+
+// fetchQuestions();
+
 start();

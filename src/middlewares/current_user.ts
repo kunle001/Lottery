@@ -19,18 +19,25 @@ export const currentUser = catchAsync(
       throw new AppError("session expired", 401);
     }
 
+
+
     req.currentUser = isAuthenticated;
 
     next();
   }
 );
 
+
+
 export const RestrictAccessto = (roles: string[]) =>
   catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     if (!roles.includes(req.currentUser!.role)) {
       throw new AppError("restricted access", 403);
     }
-
+    if(req.currentUser?.role=="admin"&&!req.currentUser?.tokenVerified){
+      throw new AppError("2fa has not been verified", 403)
+    }
+    
     next();
   });
 

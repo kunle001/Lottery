@@ -311,12 +311,12 @@ export class AuthController {
     //   throw new AppError("invalid token", 400);
     // }
 
-    await this.userService.VerifyTwofaToken(
+    const tok= await this.userService.VerifyTwofaToken(
       req.currentUser!.id,
       req.body.token
     );
 
-    sendSuccess(res, 200, "token verified");
+    sendSuccess(res, 200, tok);
   });
 
   GetToken = catchAsync(async (req: Request, res: Response) => {

@@ -22,6 +22,7 @@ export interface UserPayload {
   email: string;
   role: string;
   image?: string;
+  tokenVerified?: true
 }
 
 declare global {
