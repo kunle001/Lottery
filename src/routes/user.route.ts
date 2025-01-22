@@ -12,6 +12,7 @@ const paymentController = new PaymentController();
 
 router.route("/list-of-banks").get(userController.listOfBanks);
 router.route("/delete-user").get(userController.DeleteUser);
+router.route("/webhook").post(userController.WebHook);
 
 router.use(requireAuth);
 router.route("/add-interest").post(userController.addInterest);
