@@ -63,7 +63,7 @@ const start = async () => {
     startJob();
     console.log(`Listening on port ${PORT}`);
     console.log(
-      `============================>>>>>>>>>>>>>>>${NODE_ENV.toUpperCase()} environment`
+      `====================HAHAHAHAHA========>>>>>>>>>>>>>>>${NODE_ENV.toUpperCase()} environment`
     );
   });
 
