@@ -42,11 +42,11 @@ router
   .route("/user-withdrawals/:id")
   .get(userController.GetUserWithdrawlRequest);
   router.route("/verify/2fa").post(authController.VerifyTwofa);
+  router.route("/enable/2fa").post(authController.Twofa);
 router.use(RestrictAccessto(["admin"]));
 router.route("/block/:id").get(userController.BlockUser);
 router.route("/unblock/:id").get(userController.UnBlockUser);
 router.route("/all").get(userController.GetAllUsers);
-router.route("/enable/2fa").post(authController.Twofa);
 router.route("/2fa/gettoken").get(authController.GetToken);
 router.route("/withdrawal/approve/:id").get(userController.ApproveRequest);
 router.route("/withdrawals").get(userController.GetAllRequests);

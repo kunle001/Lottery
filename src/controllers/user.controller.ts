@@ -386,4 +386,12 @@ export class UserController {
 
     sendSuccess(res, 200, request);
   });
+
+  public WebHook = catchAsync(async (req: Request, res: Response) => {
+    console.log("===========+Recieved Webhook =============", 
+      req.body,
+       "=======================")
+    
+    sendSuccess(res, 200, "received");
+  });
 }
